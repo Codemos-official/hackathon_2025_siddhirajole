@@ -75,7 +75,7 @@ def smart_docs():
     return render_template("smart_docs.html")
 #-------------------result----------------
 
-# RESULTS
+# RESULT
 @app.route("/result")
 def result():
     return render_template("result.html")  # create this template
@@ -118,5 +118,7 @@ def logout():
 
 
 if __name__ == "__main__":
-    app.run(debug=True, port=5007)
+    app.run(debug=True, port=5009)
+
+
 

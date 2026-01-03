@@ -16,9 +16,10 @@
             font-family: "Segoe UI", sans-serif;
             background:
               linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)),
-              url("https://images.unsplash.com/photo-1521791136064-7986c2920216");
+              url("{{ url_for('static', filename='about2.jpg') }}");
             background-size: cover;
-            background-position: center;
+            background-position: center top;
+            background-repeat: no-repeat;
             background-attachment: fixed;
             min-height: 100vh;
         }
@@ -51,6 +52,7 @@
             padding: 15px;
             text-align: center;
             font-weight: 600;
+            color: white;
         }
 
         .stat-value{
@@ -64,6 +66,7 @@
             padding: 6px 12px;
             border-radius: 20px;
             font-weight: 600;
+            display: inline-block;
         }
 
         ul li{
@@ -76,12 +79,12 @@
 <!-- NAVBAR -->
 <nav class="navbar navbar-expand-lg navbar-dark">
     <div class="container-fluid px-4">
-        <a class="navbar-brand fw-bold" href="#">Export Launchpad</a>
+        <a class="navbar-brand fw-bold" href="/">Export Launchpad</a>
         <div class="collapse navbar-collapse">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="/dashboard">Dashboard</a></li>
-                <li class="nav-item"><a class="nav-link active" href="/result">Result</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('dashboard') }}">Dashboard</a></li>
+                <li class="nav-item"><a class="nav-link active" href="{{ url_for('result') }}">Result</a></li>
                 <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
                 <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
                 <li class="nav-item"><a class="nav-link text-warning" href="/logout">Logout</a></li>
@@ -98,12 +101,12 @@
 
         <div class="row g-3">
             <div class="col-md-5">
-                <label class="form-label">Product Name</label>
+                <label class="form-label text-white">Product Name</label>
                 <input type="text" id="product" class="form-control" placeholder="e.g. Indian Spices">
             </div>
 
             <div class="col-md-5">
-                <label class="form-label">Destination Country / City</label>
+                <label class="form-label text-white">Destination Country / City</label>
                 <input type="text" id="country" class="form-control" placeholder="e.g. Germany">
             </div>
 
@@ -158,31 +161,28 @@
             <!-- INFO -->
             <div class="col-md-5">
                 <div class="glass-box">
-
                     <h5 class="section-title">Export Guidelines</h5>
                     <ul>
                         <li>Verify correct <b>HS Code</b> for the selected product.</li>
                         <li>Ensure packaging meets destination country standards.</li>
-                        <li>Check import regulations & food safety norms (if applicable).</li>
-                        <li>Prefer secure payment terms like <b>LC or Advance Payment</b>.</li>
+                        <li>Check import regulations & safety norms.</li>
+                        <li>Prefer secure payment terms like <b>LC / Advance</b>.</li>
                         <li>Work with reliable freight forwarders.</li>
                     </ul>
 
                     <h5 class="section-title mt-3">Required Documents</h5>
                     <ul>
-                        <li><b>Commercial Invoice</b> – Sale details between buyer & exporter.</li>
-                        <li><b>Packing List</b> – Weight, quantity, packaging details.</li>
-                        <li><b>Certificate of Origin</b> – Confirms Indian origin.</li>
-                        <li><b>Bill of Lading / Airway Bill</b> – Shipping proof.</li>
-                        <li><b>IEC Certificate</b> – Mandatory for Indian exporters.</li>
+                        <li><b>Commercial Invoice</b></li>
+                        <li><b>Packing List</b></li>
+                        <li><b>Certificate of Origin</b></li>
+                        <li><b>Bill of Lading / Airway Bill</b></li>
+                        <li><b>IEC Certificate</b></li>
                     </ul>
-
                 </div>
             </div>
 
         </div>
     </div>
-
 </div>
 
 <!-- JS -->
@@ -222,6 +222,3 @@ function generateReport(){
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
-
-
-
