@@ -2,137 +2,167 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>About | Export Launchpad</title>
+    <title>About Us | Export Launchpad</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
     <style>
-        * { box-sizing: border-box; margin:0; padding:0; }
         body {
-            font-family: 'Segoe UI', Tahoma, sans-serif;
-            min-height: 100vh;
-            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
-                        url("https://images.unsplash.com/photo-1498050108023-c5249f4df085");
-            background-size: cover;
-            background-position: center;
-            color: white;
+            margin: 0;
+            font-family: "Segoe UI", sans-serif;
+            background-color: #0f172a;
+            color: #e5e7eb;
         }
 
-        /* HEADER */
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 40px;
-            background: rgba(0,0,0,0.5);
-            backdrop-filter: blur(8px);
+        /* NAVBAR */
+        .navbar {
+            background-color: #020617;
         }
-        .logo { font-size: 24px; font-weight: bold; }
-        nav a {
-            color: white;
-            margin-left: 20px;
-            text-decoration: none;
+
+        .navbar-brand {
+            font-weight: 800;
+            color: #f97316 !important;
+        }
+
+        .nav-link {
+            color: #e5e7eb !important;
+            margin-left: 15px;
             font-weight: 500;
-            position: relative;
-        }
-        nav a::after {
-            content: "";
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -4px;
-            left: 0;
-            background: #ff7b00;
-            transition: 0.3s;
-        }
-        nav a:hover::after { width: 100%; }
-
-        /* MAIN CONTENT */
-        .container {
-            max-width: 900px;
-            margin: 60px auto;
-            background: rgba(255,255,255,0.1);
-            padding: 40px;
-            border-radius: 20px;
-            backdrop-filter: blur(12px);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
         }
 
-        h1 {
-            text-align: center;
-            font-size: 32px;
+        .nav-link:hover {
+            color: #f97316 !important;
+        }
+
+        /* ABOUT SECTION */
+        .about-section {
+            padding: 90px 0;
+        }
+
+        .about-title {
+            font-size: 40px;
+            font-weight: 800;
             margin-bottom: 20px;
-            color: #ffb347;
+            color: #f97316;
         }
 
-        p {
-            font-size: 17px;
+        .about-text {
+            font-size: 16px;
             line-height: 1.8;
-            margin-bottom: 20px;
-            color: #f1f1f1;
+            color: #cbd5f5;
         }
 
-        /* BUTTON BACK */
-        .back-btn-container {
-            display: flex;
-            justify-content: center;
-            margin-top: 20px;
-        }
-        .back-btn {
-            text-decoration: none;
-            padding: 12px 22px;
-            background: rgba(255,255,255,0.2);
-            color: white;
-            border-radius: 10px;
-            font-weight: 500;
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(255,255,255,0.3);
-            transition: 0.3s;
-        }
-        .back-btn:hover {
-            background: rgba(255,255,255,0.35);
-            transform: translateY(-2px);
+        /* IMAGE GRID */
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px;
+            margin-top: 30px;
         }
 
+        .image-grid img {
+            width: 100%;
+            height: 230px;
+            object-fit: cover;
+            border-radius: 16px;
+            box-shadow: 0 12px 25px rgba(0,0,0,0.5);
+            transition: transform 0.35s ease;
+        }
+
+        .image-grid img:hover {
+            transform: scale(1.05);
+        }
+
+        /* FEATURES */
+        .feature-box {
+            background-color: #020617;
+            padding: 18px;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            border-left: 4px solid #f97316;
+        }
+
+        footer {
+            background-color: #020617;
+            text-align: center;
+            padding: 20px;
+            font-size: 14px;
+            color: #94a3b8;
+        }
     </style>
 </head>
+
 <body>
 
-<header>
-    <div class="logo">🚀 Export Launchpad</div>
-    <nav>
-        <a href="/">Home</a>
-        <a href="{{ url_for('dashboard') }}">Dashboard</a>
-        <a href="{{ url_for('result') }}">Results</a>
-        <a href="{{ url_for('about') }}">About</a>
-        <a href="/contact">Contact Us</a>
-        <a href="/logout">Logout</a>
-    </nav>
-</header>
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="/">Export Launchpad</a>
 
-<div class="container">
-    <h1>About Export Launchpad</h1>
+        <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#nav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-    <p>
-        Export Launchpad is a web application designed to empower small Indian exporters to confidently enter international markets. It addresses the challenges faced by beginners, micro-exporters, and small businesses who often struggle with product selection, profit calculation, risk assessment, and understanding export procedures.
-    </p>
-
-    <p>
-        The platform combines four key modules:
-    </p>
-
-    <ul style="margin-left:20px; margin-bottom:20px;">
-        <li><strong>Niche Product Finder:</strong> Identify high-demand, export-ready products.</li>
-        <li><strong>Profit Snapshot:</strong> Estimate potential profits and break-even points.</li>
-        <li><strong>Risk Radar:</strong> Assess payment, regulatory, and logistics risks.</li>
-        <li><strong>Smart Docs:</strong> Step-by-step document checklist for exporting.</li>
-    </ul>
-
-    <p>
-        With an intuitive interface and actionable insights, Export Launchpad makes global trade accessible and understandable, helping new exporters make data-driven decisions, minimize risks, and grow their business successfully.
-    </p>
-
-    <div class="back-btn-container">
-        <a href="{{ url_for('dashboard') }}" class="back-btn">← Back to Dashboard</a>
+        <div class="collapse navbar-collapse" id="nav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="/dashboard">Dashboard</a></li>
+                <li class="nav-item"><a class="nav-link active" href="/about">About</a></li>
+                <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
+            </ul>
+        </div>
     </div>
-</div>
+</nav>
 
+<!-- ABOUT -->
+<section class="about-section">
+    <div class="container">
+        <div class="row align-items-center">
+
+            <!-- LEFT TEXT -->
+            <div class="col-lg-6">
+                <h1 class="about-title">About Us</h1>
+
+                <p class="about-text">
+                    Export Launchpad is a smart trade intelligence platform designed
+                    to empower Indian exporters. We help businesses discover
+                    profitable products, understand global demand, and reduce
+                    export risks using data-driven insights.
+                </p>
+
+                <p class="about-text">
+                    Our goal is to make exporting simple, transparent, and accessible
+                    for startups, MSMEs, and first-time exporters.
+                </p>
+
+                <div class="mt-4">
+                    <div class="feature-box">🚢 Global Shipping Intelligence</div>
+                    <div class="feature-box">📦 Product & Market Discovery</div>
+                    <div class="feature-box">📊 Risk & Profit Estimation</div>
+                    <div class="feature-box">🌍 Country-wise Export Guidance</div>
+                </div>
+            </div>
+
+            <!-- RIGHT IMAGES -->
+            <div class="col-lg-6">
+                <div class="image-grid">
+                    <img src="{{ url_for('static', filename='about1.jpg') }}" alt="Shipping Container">
+                    <img src="{{ url_for('static', filename='about2.jpg') }}" alt="Global Trade">
+                    <img src="{{ url_for('static', filename='about3.jpg') }}" alt="Logistics Network">
+                    <img src="{{ url_for('static', filename='about4.jpg') }}" alt="Export Supply Chain">
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<footer>
+    © 2026 Export Launchpad · Smart Trade Starts Here
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

@@ -3,47 +3,195 @@
 <head>
     <meta charset="UTF-8">
     <title>Export Launchpad</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
     <style>
-        body { font-family: Arial; text-align: center; background: #f0f8ff; }
-        .landing-header { padding: 20px; background: #1e90ff; color: white; font-size: 24px; text-align: left; }
-        .landing-container { margin-top: 100px; }
-        .highlight { color: #ff4500; }
-        .tagline { font-size: 18px; color: #555; }
-        .button-container { margin-top: 50px; }
-        .plane-icon { font-size: 50px; display: block; margin-bottom: 20px; transition: transform 1s; }
-        .fly { transform: translateY(-200px) rotate(20deg); }
-        #letsGo { padding: 15px 30px; font-size: 18px; background: #ff4500; color: white; border: none; border-radius: 8px; cursor: pointer; }
-        #letsGo:hover { background: #ff6347; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            height: 100vh;
+            background: url("{{ url_for('static', filename='home.cms') }}") no-repeat center center/cover;
+            background-attachment: fixed;
+            overflow: hidden;
+            color: #fff;
+        }
+
+        /* LIGHT overlay (so image stays clear) */
+        body::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.25); /* 👈 lighter */
+            z-index: 0;
+        }
+
+        /* HEADER */
+        .landing-header {
+            position: relative;
+            z-index: 2;
+            padding: 20px 40px;
+            font-size: 26px;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        /* MAIN */
+        .landing-container {
+            position: relative;
+            z-index: 2;
+            height: calc(100vh - 80px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 54px;
+            margin-bottom: 10px;
+        }
+
+        .highlight {
+            color: #ffd166;
+        }
+
+        .tagline {
+            font-size: 20px;
+            opacity: 0.95;
+        }
+
+        .button-container {
+            margin-top: 70px;
+            position: relative;
+        }
+
+        /* PLANE */
+        .plane-wrapper {
+            position: relative;
+            width: 300px;
+            height: 160px;
+        }
+
+        .plane-icon {
+            font-size: 100px;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 5;
+            transition: transform 1.4s ease-in-out;
+        }
+
+        /* PASTEL FOG PARTICLES */
+        .fog {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 260px;
+            height: 160px;
+            opacity: 0;
+            z-index: 3;
+            pointer-events: none;
+        }
+
+        .fog span {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            filter: blur(22px);
+            opacity: 0.8;
+            animation: none;
+        }
+
+        .fog span:nth-child(1) { background: #ffb3c6; left: 0; top: 40px; }
+        .fog span:nth-child(2) { background: #bde0fe; left: 60px; top: 0; }
+        .fog span:nth-child(3) { background: #cdb4db; left: 120px; top: 50px; }
+        .fog span:nth-child(4) { background: #ffc8dd; left: 180px; top: 20px; }
+
+        /* FLY */
+        .fly {
+            transform: translate(420px, -320px) rotate(22deg) scale(1.1);
+        }
+
+        .release-fog {
+            opacity: 1;
+        }
+
+        .release-fog span {
+            animation: fogMove 1.4s ease-out forwards;
+        }
+
+        @keyframes fogMove {
+            0% {
+                transform: scale(0.6);
+                opacity: 0.9;
+            }
+            100% {
+                transform: translate(-160px, 120px) scale(1.6);
+                opacity: 0;
+            }
+        }
+
+        /* BUTTON */
+        #letsGo {
+            margin-top: 50px;
+            padding: 16px 44px;
+            font-size: 18px;
+            background: linear-gradient(135deg, #ff7a18, #ffd166);
+            color: #000;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: 0 12px 35px rgba(255, 209, 102, 0.45);
+            transition: all 0.25s ease;
+        }
+
+        #letsGo:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 18px 45px rgba(255, 209, 102, 0.7);
+        }
     </style>
 </head>
 <body>
 
-<!-- HEADER -->
 <header class="landing-header">
     Export Launchpad
 </header>
 
-<!-- MAIN CONTENT -->
 <div class="landing-container">
     <h1>Welcome to <span class="highlight">Export Launchpad</span></h1>
-    <p class="tagline">Your gateway to easy exporting</p>
+    <p class="tagline">Your gateway to global exporting 🚀</p>
 
     <div class="button-container">
-        <div class="plane-icon">✈️</div>
+        <div class="plane-wrapper">
+            <div class="fog">
+                <span></span><span></span><span></span><span></span>
+            </div>
+            <div class="plane-icon">✈️</div>
+        </div>
+
         <button id="letsGo">Let's Go</button>
     </div>
 </div>
 
 <script>
-document.getElementById("letsGo").addEventListener("click", function() {
+document.getElementById("letsGo").addEventListener("click", function () {
     const plane = document.querySelector(".plane-icon");
+    const fog = document.querySelector(".fog");
+
+    fog.classList.add("release-fog");
     plane.classList.add("fly");
 
-    // After 1 second, go to dashboard
-    setTimeout(function() {
+    setTimeout(() => {
         window.location.href = "/dashboard";
-    }, 1000);
+    }, 1400);
 });
 </script>
 
