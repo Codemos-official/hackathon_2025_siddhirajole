@@ -1,224 +1,234 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Export Result | Export Launchpad</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8">
+<title>Export Result | Export Launchpad</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- Bootstrap -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    <style>
-        body{
-            font-family: "Segoe UI", sans-serif;
-            background:
-              linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)),
-              url("{{ url_for('static', filename='about2.jpg') }}");
-            background-size: cover;
-            background-position: center top;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-            min-height: 100vh;
-        }
+<style>
+body, html {
+    margin:0;
+    padding:0;
+    height:100%;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    color:white;
+}
 
-        /* Navbar */
-        .navbar{
-            background: rgba(0,0,0,0.75);
-            backdrop-filter: blur(8px);
-        }
+/* Background */
+body {
+    background: url("{{ url_for('static', filename='result.avif') }}") no-repeat center center fixed;
+    background-size: cover;
+    position: relative;
+}
+body::before {
+    content:"";
+    position:absolute;
+    top:0; left:0; right:0; bottom:0;
+    background: rgba(0,0,0,0.35);
+    z-index:0;
+}
 
-        /* Glass card */
-        .glass-box{
-            background: rgba(255,255,255,0.15);
-            backdrop-filter: blur(14px);
-            border-radius: 14px;
-            padding: 25px;
-            color: white;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.35);
-        }
+/* Navbar */
+.navbar {
+    position: fixed;
+    top:0;
+    width:100%;
+    z-index:1001;
+    background: rgba(2,6,23,0.95);
+    backdrop-filter: blur(8px);
+}
+.navbar-brand {
+    font-weight:800;
+    font-size:22px;
+    color:#f97316 !important;
+}
+.navbar-nav {
+    display:flex;
+    gap:15px;
+}
+.nav-link {
+    color:#e5e7eb !important;
+    font-weight:500;
+}
+.nav-link:hover, .nav-link.active { color:#f97316 !important; }
 
-        .section-title{
-            font-weight: 700;
-            margin-bottom: 12px;
-        }
+/* Main Container */
+.container-main {
+    position: relative;
+    z-index:1;
+    max-width:1100px;
+    margin:120px auto 50px auto;
+    padding:30px;
+    background: rgba(0,0,0,0.55);
+    border-radius: 20px;
+    box-shadow:0 20px 40px rgba(0,0,0,0.6);
+}
 
-        /* Summary cards */
-        .stat-card{
-            background: rgba(255,255,255,0.2);
-            border-radius: 12px;
-            padding: 15px;
-            text-align: center;
-            font-weight: 600;
-            color: white;
-        }
+/* Input Section */
+.input-section {
+    display:flex;
+    flex-wrap:wrap;
+    gap:15px;
+    justify-content:center;
+    margin-bottom:30px;
+}
+.input-section input, .input-section select {
+    padding:12px 15px;
+    font-size:16px;
+    border-radius:10px;
+    border:none;
+    min-width:200px;
+}
+.input-section button {
+    padding:12px 20px;
+    background:#ff4500;
+    color:white;
+    border:none;
+    font-weight:bold;
+    border-radius:25px;
+    cursor:pointer;
+    transition:0.3s;
+}
+.input-section button:hover { background:#ff6a2d; transform:translateY(-2px); }
 
-        .stat-value{
-            font-size: 22px;
-            margin-top: 5px;
-            color: #ffd966;
-        }
+/* Back Button */
+.back-btn-container {
+    display:flex;
+    justify-content:center;
+    margin-bottom:20px;
+}
+.back-btn {
+    display:inline-block;
+    padding:12px 24px;
+    background:#ff4500;
+    color:white;
+    text-decoration:none;
+    font-weight:bold;
+    border-radius:30px;
+    box-shadow:0 8px 18px rgba(255,69,0,0.5);
+    transition:0.3s;
+}
+.back-btn:hover { background:#ff6a2d; transform:translateY(-2px); }
 
-        .good{
-            background: rgba(25,135,84,0.85);
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-weight: 600;
-            display: inline-block;
-        }
+/* Sections */
+.section { margin-bottom:40px; }
+.doc-suggestion-box {
+    background: rgba(255,255,255,0.1);
+    padding:20px;
+    border-radius:16px;
+}
+.doc-suggestion-box h4 { margin-bottom:15px; color:#ffcc00; }
+ul { padding-left:20px; }
+ul li { margin-bottom:8px; }
 
-        ul li{
-            margin-bottom: 6px;
-        }
-    </style>
+</style>
 </head>
 <body>
 
-<!-- NAVBAR -->
-<nav class="navbar navbar-expand-lg navbar-dark">
-    <div class="container-fluid px-4">
-        <a class="navbar-brand fw-bold" href="/">Export Launchpad</a>
-        <div class="collapse navbar-collapse">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ url_for('dashboard') }}">Dashboard</a></li>
-                <li class="nav-item"><a class="nav-link active" href="{{ url_for('result') }}">Result</a></li>
-                <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
-                <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
-                <li class="nav-item"><a class="nav-link text-warning" href="/logout">Logout</a></li>
-            </ul>
-        </div>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg d-flex justify-content-between px-4">
+    <a class="navbar-brand" href="/">Export Launchpad</a>
+    <div class="navbar-nav">
+        <a class="nav-link" href="/">Home</a>
+        <a class="nav-link" href="{{ url_for('dashboard') }}">Dashboard</a>
+        <a class="nav-link active" href="{{ url_for('result') }}">Result</a>
+        <a class="nav-link" href="/about">About</a>
+        <a class="nav-link" href="/contact">Contact Us</a>
+        <a class="nav-link text-warning" href="/logout">Logout</a>
     </div>
 </nav>
 
-<div class="container my-5">
+<div class="container-main">
 
-    <!-- INPUT -->
-    <div class="glass-box mb-4">
-        <h4 class="section-title">Export Market Analysis</h4>
+    <!-- Back button -->
+    <div class="back-btn-container">
+        <a href="{{ url_for('dashboard') }}" class="back-btn">← Back to Dashboard</a>
+    </div>
 
-        <div class="row g-3">
-            <div class="col-md-5">
-                <label class="form-label text-white">Product Name</label>
-                <input type="text" id="product" class="form-control" placeholder="e.g. Indian Spices">
-            </div>
+    <h2 class="text-center mb-4">Export Product Analysis & Guidance</h2>
 
-            <div class="col-md-5">
-                <label class="form-label text-white">Destination Country / City</label>
-                <input type="text" id="country" class="form-control" placeholder="e.g. Germany">
-            </div>
+    <!-- User Inputs -->
+    <div class="input-section">
+        <input type="text" id="productInput" placeholder="Enter Product Name">
+        <input type="text" id="countryInput" placeholder="Enter Country">
+        <button onclick="generateResult()">Generate Result</button>
+    </div>
 
-            <div class="col-md-2 d-flex align-items-end">
-                <button class="btn btn-warning w-100 fw-bold" onclick="generateReport()">Generate</button>
-            </div>
+    <!-- Results Section (hidden initially) -->
+    <div id="resultSection" style="display:none;">
+        <!-- Chart -->
+        <div class="section">
+            <canvas id="productChart" height="150"></canvas>
+        </div>
+
+        <!-- Required Documents -->
+        <div class="section doc-suggestion-box">
+            <h4>Required Documents</h4>
+            <ul id="documentsList"></ul>
+        </div>
+
+        <!-- Suggestions -->
+        <div class="section doc-suggestion-box">
+            <h4>Export Suggestions</h4>
+            <ul id="suggestionsList"></ul>
         </div>
     </div>
 
-    <!-- REPORT -->
-    <div id="reportSection" style="display:none">
-
-        <!-- SUMMARY -->
-        <div class="row g-3 mb-4">
-            <div class="col-md-3">
-                <div class="stat-card">
-                    Market Demand
-                    <div class="stat-value">High</div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="stat-card">
-                    Estimated Profit / Unit
-                    <div class="stat-value">$10 – $15</div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="stat-card">
-                    Risk Level
-                    <div class="stat-value">Medium</div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="stat-card">
-                    Recommendation
-                    <div class="good mt-2">Export Recommended</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- DETAILS -->
-        <div class="row g-4">
-
-            <!-- CHART -->
-            <div class="col-md-7">
-                <div class="glass-box">
-                    <h5 class="section-title">Demand Trend (Last 6 Months)</h5>
-                    <canvas id="demandChart"></canvas>
-                </div>
-            </div>
-
-            <!-- INFO -->
-            <div class="col-md-5">
-                <div class="glass-box">
-                    <h5 class="section-title">Export Guidelines</h5>
-                    <ul>
-                        <li>Verify correct <b>HS Code</b> for the selected product.</li>
-                        <li>Ensure packaging meets destination country standards.</li>
-                        <li>Check import regulations & safety norms.</li>
-                        <li>Prefer secure payment terms like <b>LC / Advance</b>.</li>
-                        <li>Work with reliable freight forwarders.</li>
-                    </ul>
-
-                    <h5 class="section-title mt-3">Required Documents</h5>
-                    <ul>
-                        <li><b>Commercial Invoice</b></li>
-                        <li><b>Packing List</b></li>
-                        <li><b>Certificate of Origin</b></li>
-                        <li><b>Bill of Lading / Airway Bill</b></li>
-                        <li><b>IEC Certificate</b></li>
-                    </ul>
-                </div>
-            </div>
-
-        </div>
-    </div>
 </div>
 
-<!-- JS -->
 <script>
-function generateReport(){
-    const product = document.getElementById("product").value;
-    const country = document.getElementById("country").value;
+function generateResult(){
+    const product = document.getElementById("productInput").value.trim();
+    const country = document.getElementById("countryInput").value.trim();
 
-    if(product === "" || country === ""){
-        alert("Please enter product and destination");
+    if(!product || !country){
+        alert("Please enter both Product and Country");
         return;
     }
 
-    document.getElementById("reportSection").style.display = "block";
+    // Show result section
+    document.getElementById("resultSection").style.display = "block";
 
-    const ctx = document.getElementById('demandChart');
-    new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: ['Jan','Feb','Mar','Apr','May','Jun'],
-            datasets: [{
-                label: 'Demand Index',
-                data: [45,55,65,70,85,95],
-                borderColor: '#ffc107',
-                backgroundColor: 'rgba(255,193,7,0.25)',
-                fill:true,
-                tension:0.35
-            }]
-        },
-        options: {
-            scales: { y: { beginAtZero:true } }
-        }
-    });
+    // Example chart data
+    const chartData = {
+        labels: ["High Demand", "Medium Demand", "Low Demand"],
+        datasets:[{
+            label: product + " Export Demand",
+            data: [Math.floor(Math.random()*70)+10, Math.floor(Math.random()*20)+5, Math.floor(Math.random()*10)+1],
+            backgroundColor:['#00ff9d','#ffd000','#ff4b4b'],
+            borderRadius:8
+        }]
+    };
+
+    const config = {type:'bar', data: chartData, options:{responsive:true, plugins:{legend:{display:false}}, scales:{y:{beginAtZero:true,max:100}}}};
+
+    if(window.chartInstance) window.chartInstance.destroy();
+    const ctx = document.getElementById('productChart').getContext('2d');
+    window.chartInstance = new Chart(ctx, config);
+
+    // Example documents & suggestions
+    const documents = ["Import Export Code (IEC)","Invoice","Packing List","Bill of Lading / AWB"];
+    const suggestions = [
+        "Check import regulations for "+country,
+        "Ensure quality packaging",
+        "Target high-demand markets in "+country
+    ];
+
+    const docsUl = document.getElementById("documentsList");
+    docsUl.innerHTML = "";
+    documents.forEach(doc => { const li = document.createElement("li"); li.textContent = doc; docsUl.appendChild(li); });
+
+    const suggUl = document.getElementById("suggestionsList");
+    suggUl.innerHTML = "";
+    suggestions.forEach(s => { const li = document.createElement("li"); li.textContent = s; suggUl.appendChild(li); });
 }
 </script>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

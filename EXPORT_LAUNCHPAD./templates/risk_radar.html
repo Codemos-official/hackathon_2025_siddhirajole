@@ -10,52 +10,45 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, sans-serif;
             margin: 0;
             min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+
+            /* ✅ YOUR LOCAL BACKGROUND IMAGE */
             background:
-                linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
-                url("https://images.unsplash.com/photo-1508599589920-14cfa1c1fe4d");
+                linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)),
+                url("{{ url_for('static', filename='risk.webp') }}");
+
             background-size: cover;
             background-position: center;
+            background-attachment: fixed;
             color: white;
         }
 
+        /* HEADER */
         header {
-            padding: 30px;
-            font-size: 28px;
-            font-weight: bold;
-            text-align: center;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
             background: rgba(0,0,0,0.6);
         }
 
-        .container {
-            max-width: 1100px;
-            margin: 30px auto;
-            padding: 30px;
-            background: rgba(0,0,0,0.55);
-            border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+        header h1 {
+            margin: 0;
+            font-size: 26px;
         }
 
-        /* 🔴 BACK BUTTON — VERY VISIBLE */
-        .back-btn-container {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 30px;
-        }
-
+        /* BACK BUTTON */
         .back-btn {
-            display: inline-block;
-            padding: 14px 26px;
+            padding: 12px 22px;
             background: #ff4500;
             color: white;
             text-decoration: none;
-            font-size: 16px;
             font-weight: bold;
             border-radius: 30px;
-            box-shadow: 0 10px 20px rgba(255,69,0,0.5);
-            transition: all 0.3s ease;
+            transition: 0.3s;
+            box-shadow: 0 8px 18px rgba(255,69,0,0.5);
         }
 
         .back-btn:hover {
@@ -63,23 +56,35 @@
             transform: translateY(-2px);
         }
 
-        h2 {
-            text-align: center;
-            margin-bottom: 40px;
-            font-size: 26px;
+        /* MAIN CONTAINER */
+        .container {
+            max-width: 1100px;
+            margin: 50px auto;
+            padding: 40px;
+            background: rgba(0,0,0,0.55);
+            border-radius: 22px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.7);
         }
 
+        h2 {
+            text-align: center;
+            margin-bottom: 35px;
+            font-size: 28px;
+        }
+
+        /* SELECTORS */
         .selectors {
             display: flex;
             justify-content: center;
             gap: 20px;
             flex-wrap: wrap;
+            margin-bottom: 40px;
         }
 
         select, button {
             padding: 14px 18px;
             font-size: 16px;
-            border-radius: 8px;
+            border-radius: 10px;
             border: none;
         }
 
@@ -95,38 +100,38 @@
         }
 
         button:hover {
-            box-shadow: 0 10px 20px rgba(255,69,0,0.4);
+            box-shadow: 0 10px 20px rgba(255,69,0,0.5);
         }
 
+        /* RISK CARDS */
         .risk-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 25px;
-            margin-top: 40px;
+            gap: 30px;
         }
 
         .risk-card {
             background: rgba(255,255,255,0.15);
-            padding: 25px;
-            border-radius: 16px;
+            padding: 30px;
+            border-radius: 18px;
             text-align: center;
             cursor: pointer;
             transition: 0.3s;
         }
 
         .risk-card:hover {
-            transform: translateY(-8px);
+            transform: translateY(-10px) scale(1.03);
             background: rgba(255,255,255,0.25);
         }
 
         .risk-title {
             font-size: 18px;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             font-weight: 600;
         }
 
         .risk-level {
-            font-size: 26px;
+            font-size: 28px;
             font-weight: bold;
         }
 
@@ -139,7 +144,7 @@
             display: none;
             position: fixed;
             inset: 0;
-            background: rgba(0,0,0,0.8);
+            background: rgba(0,0,0,0.85);
         }
 
         .modal-content {
@@ -150,7 +155,6 @@
             max-width: 90%;
             margin: 12% auto;
             border-radius: 16px;
-            text-align: center;
         }
 
         .close {
@@ -164,17 +168,11 @@
 <body>
 
 <header>
-    🚨 Risk Radar – Export Launchpad
+    <h1>🚨 Risk Radar – Export Launchpad</h1>
+    <a href="{{ url_for('dashboard') }}" class="back-btn">← Back to Dashboard</a>
 </header>
 
 <div class="container">
-
-    <!-- ✅ BACK BUTTON (CENTER & CLEAR) -->
-    <div class="back-btn-container">
-        <a href="{{ url_for('dashboard') }}" class="back-btn">
-            ← Back to Dashboard
-        </a>
-    </div>
 
     <h2>Analyze Export Risks Before You Ship</h2>
 
@@ -251,3 +249,7 @@ function closeModal() {
 
 </body>
 </html>
+
+
+
+

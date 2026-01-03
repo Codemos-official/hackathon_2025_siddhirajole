@@ -11,36 +11,51 @@
 body{
     font-family: "Segoe UI", sans-serif;
     background:
-      linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)),
-      url("https://images.unsplash.com/photo-1521791136064-7986c2920216");
+      linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.55)),
+      url("/static/nichproduct.png");
     background-size: cover;
+    background-position: center;
     background-attachment: fixed;
     color:white;
 }
 
+/* NAVBAR */
 .navbar{
     background: rgba(0,0,0,0.75);
-    backdrop-filter: blur(8px);
+    backdrop-filter: blur(6px);
 }
 
+/* BACK BUTTON */
+.back-btn{
+    position: fixed;
+    top: 80px;
+    left: 25px;
+    z-index: 999;
+}
+
+/* GLASS */
 .glass-box{
-    background: rgba(255,255,255,0.15);
-    backdrop-filter: blur(14px);
-    border-radius: 16px;
+    background: rgba(255,255,255,0.18);
+    backdrop-filter: blur(12px);
+    border-radius: 18px;
     padding: 25px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    box-shadow: 0 12px 35px rgba(0,0,0,0.5);
 }
 
+/* PRODUCT CARD */
 .product-card{
-    background: rgba(255,255,255,0.2);
-    border-radius: 14px;
+    background: rgba(255,255,255,0.22);
+    border-radius: 16px;
     overflow: hidden;
-    transition: 0.3s;
+    transition: 0.35s;
 }
-.product-card:hover{ transform: translateY(-6px); }
+.product-card:hover{
+    transform: translateY(-8px) scale(1.03);
+    box-shadow: 0 18px 40px rgba(0,0,0,0.6);
+}
 
 .product-card img{
-    height:160px;
+    height:170px;
     object-fit:cover;
 }
 
@@ -52,56 +67,60 @@ body{
 
 <body>
 
-<nav class="navbar navbar-dark">
-<div class="container-fluid px-4">
+<!-- NAVBAR -->
+<nav class="navbar navbar-dark fixed-top">
+  <div class="container-fluid px-4">
     <a class="navbar-brand fw-bold">Export Launchpad</a>
-</div>
+  </div>
 </nav>
 
-<div class="container my-5">
+<!-- 🔙 BACK BUTTON -->
+<button class="btn btn-outline-light back-btn fw-bold"
+        onclick="window.location.href='/dashboard'">
+    ⬅ Back to Dashboard
+</button>
 
-<!-- 🔹 ADVANCED SEARCH (COUNTRY + CITY) -->
+<div class="container my-5 pt-5">
+
+<!-- ADVANCED SEARCH -->
 <div class="glass-box mb-5">
-<h3>Advanced Export Demand Search</h3>
-<p class="text-light">Search using Country + City</p>
+  <h3>Advanced Export Demand Search</h3>
+  <p class="text-light">Search using Country + City</p>
 
-<div class="row g-3">
+  <div class="row g-3">
     <div class="col-md-4">
-        <input id="country" class="form-control" placeholder="Country (e.g. UAE)">
+      <input id="country" class="form-control" placeholder="Country (e.g. UAE)">
     </div>
     <div class="col-md-4">
-        <input id="city" class="form-control" placeholder="City (e.g. Dubai)">
+      <input id="city" class="form-control" placeholder="City (e.g. Dubai)">
     </div>
     <div class="col-md-4">
-        <button class="btn btn-warning fw-bold w-100" onclick="searchBoth()">Find Products</button>
+      <button class="btn btn-warning fw-bold w-100" onclick="searchBoth()">Find Products</button>
     </div>
-</div>
+  </div>
 </div>
 
-<!-- 🔹 SEPARATE SEARCH -->
+<!-- SEPARATE SEARCH -->
 <div class="row g-4 mb-4">
+<div class="col-md-6">
+  <div class="glass-box">
+    <h4>Search by Country</h4>
+    <input id="countryOnly" class="form-control mb-2" placeholder="Enter Country">
+    <button class="btn btn-info fw-bold w-100" onclick="searchCountry()">Find by Country</button>
+  </div>
+</div>
 
 <div class="col-md-6">
-<div class="glass-box">
-<h4>Search by Country</h4>
-<input id="countryOnly" class="form-control mb-2" placeholder="Enter Country">
-<button class="btn btn-info fw-bold w-100" onclick="searchCountry()">Find by Country</button>
+  <div class="glass-box">
+    <h4>Search by City</h4>
+    <input id="cityOnly" class="form-control mb-2" placeholder="Enter City">
+    <button class="btn btn-success fw-bold w-100" onclick="searchCity()">Find by City</button>
+  </div>
 </div>
-</div>
-
-<div class="col-md-6">
-<div class="glass-box">
-<h4>Search by City</h4>
-<input id="cityOnly" class="form-control mb-2" placeholder="Enter City">
-<button class="btn btn-success fw-bold w-100" onclick="searchCity()">Find by City</button>
-</div>
-</div>
-
 </div>
 
 <!-- RESULTS -->
 <div id="results" style="display:none">
-
 <h4 class="mb-3">🔥 High Demand</h4>
 <div class="row g-4 mb-4" id="highDemand"></div>
 
@@ -110,7 +129,6 @@ body{
 
 <h4 class="mb-3">📉 Low Demand</h4>
 <div class="row g-4" id="lowDemand"></div>
-
 </div>
 
 </div>
@@ -118,62 +136,42 @@ body{
 <script>
 const demoData = {
     uae:{
-        high:[
-            {name:"Luxury Chocolates", img:"https://images.unsplash.com/photo-1606312619070-d48b4c652a52", desc:"High gifting demand"},
-        ],
-        medium:[
-            {name:"Spices", img:"https://images.unsplash.com/photo-1596040033229-a9821ebd058d", desc:"Restaurant usage"},
-        ],
-        low:[
-            {name:"Handicrafts", img:"https://images.unsplash.com/photo-1582582429416-7c8d9c48c35b", desc:"Seasonal demand"},
-        ]
+        high:[{name:"Luxury Chocolates",img:"https://images.unsplash.com/photo-1606312619070-d48b4c652a52",desc:"High gifting demand"}],
+        medium:[{name:"Spices",img:"https://images.unsplash.com/photo-1596040033229-a9821ebd058d",desc:"Restaurant usage"}],
+        low:[{name:"Handicrafts",img:"https://images.unsplash.com/photo-1582582429416-7c8d9c48c35b",desc:"Seasonal demand"}]
     },
     dubai:{
-        high:[
-            {name:"Ethnic Wear", img:"https://images.unsplash.com/photo-1602810319228-1a3a7d5e9f6f", desc:"Festival & wedding demand"},
-        ],
-        medium:[
-            {name:"Dry Fruits", img:"https://images.unsplash.com/photo-1615486364717-3d553fb57bb2", desc:"Steady imports"},
-        ],
-        low:[
-            {name:"Home Decor", img:"https://images.unsplash.com/photo-1582582429416-7c8d9c48c35b", desc:"Trend based"},
-        ]
+        high:[{name:"Ethnic Wear",img:"https://images.unsplash.com/photo-1602810319228-1a3a7d5e9f6f",desc:"Festival & wedding demand"}],
+        medium:[{name:"Dry Fruits",img:"https://images.unsplash.com/photo-1615486364717-3d553fb57bb2",desc:"Steady imports"}],
+        low:[{name:"Home Decor",img:"https://images.unsplash.com/photo-1582582429416-7c8d9c48c35b",desc:"Trend based"}]
     }
 };
 
-function searchBoth(){
-    showResults(demoData["dubai"]);
-}
-
-function searchCountry(){
-    showResults(demoData["uae"]);
-}
-
-function searchCity(){
-    showResults(demoData["dubai"]);
-}
+function searchBoth(){ showResults(demoData["dubai"]); }
+function searchCountry(){ showResults(demoData["uae"]); }
+function searchCity(){ showResults(demoData["dubai"]); }
 
 function showResults(data){
     document.getElementById("results").style.display="block";
-    render("highDemand", data.high, "high");
-    render("mediumDemand", data.medium, "medium");
-    render("lowDemand", data.low, "low");
+    render("highDemand",data.high,"high");
+    render("mediumDemand",data.medium,"medium");
+    render("lowDemand",data.low,"low");
 }
 
-function render(id, arr, level){
-    const el = document.getElementById(id);
+function render(id,arr,level){
+    const el=document.getElementById(id);
     el.innerHTML="";
     arr.forEach(p=>{
-        el.innerHTML += `
+        el.innerHTML+=`
         <div class="col-md-4">
-            <div class="product-card">
-                <img src="${p.img}" class="w-100">
-                <div class="p-3">
-                    <span class="badge badge-${level}">${level.toUpperCase()}</span>
-                    <h5 class="mt-2">${p.name}</h5>
-                    <p class="small">${p.desc}</p>
-                </div>
+          <div class="product-card">
+            <img src="${p.img}" class="w-100">
+            <div class="p-3">
+              <span class="badge badge-${level}">${level.toUpperCase()}</span>
+              <h5 class="mt-2">${p.name}</h5>
+              <p class="small">${p.desc}</p>
             </div>
+          </div>
         </div>`;
     });
 }

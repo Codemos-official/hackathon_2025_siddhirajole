@@ -14,35 +14,44 @@
             font-family: "Segoe UI", sans-serif;
             background-color: #0f172a;
             color: #e5e7eb;
+            padding-top: 80px;
         }
 
         /* NAVBAR */
         .navbar {
-            background-color: #020617;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(2,6,23,0.95);
+            backdrop-filter: blur(8px);
+            padding: 12px 20px;
         }
 
         .navbar-brand {
             font-weight: 800;
+            font-size: 22px;
             color: #f97316 !important;
         }
 
         .nav-link {
             color: #e5e7eb !important;
-            margin-left: 15px;
+            margin-left: 20px;
             font-weight: 500;
         }
 
-        .nav-link:hover {
+        .nav-link:hover,
+        .nav-link.active {
             color: #f97316 !important;
         }
 
         /* ABOUT SECTION */
         .about-section {
-            padding: 90px 0;
+            padding: 70px 0;
         }
 
         .about-title {
-            font-size: 40px;
+            font-size: 42px;
             font-weight: 800;
             margin-bottom: 20px;
             color: #f97316;
@@ -54,40 +63,41 @@
             color: #cbd5f5;
         }
 
-        /* IMAGE GRID */
+        /* IMAGE GRID (ONLY 2 IMAGES) */
         .image-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 18px;
+            gap: 22px;
             margin-top: 30px;
         }
 
         .image-grid img {
             width: 100%;
-            height: 230px;
+            height: 300px; /* BIGGER IMAGE */
             object-fit: cover;
-            border-radius: 16px;
-            box-shadow: 0 12px 25px rgba(0,0,0,0.5);
-            transition: transform 0.35s ease;
+            border-radius: 18px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.45);
+            transition: transform 0.3s ease;
         }
 
         .image-grid img:hover {
-            transform: scale(1.05);
+            transform: scale(1.04);
         }
 
         /* FEATURES */
         .feature-box {
             background-color: #020617;
-            padding: 18px;
+            padding: 16px;
             border-radius: 12px;
             margin-bottom: 12px;
             border-left: 4px solid #f97316;
+            font-weight: 500;
         }
 
         footer {
             background-color: #020617;
             text-align: center;
-            padding: 20px;
+            padding: 18px;
             font-size: 14px;
             color: #94a3b8;
         }
@@ -97,22 +107,22 @@
 <body>
 
 <!-- NAVBAR -->
-<nav class="navbar navbar-expand-lg fixed-top">
-    <div class="container">
-        <a class="navbar-brand" href="/">Export Launchpad</a>
+<nav class="navbar navbar-expand-lg">
+    <a class="navbar-brand" href="/">Export Launchpad</a>
 
-        <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#nav">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+    <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#nav">
+        <span class="navbar-toggler-icon"></span>
+    </button>
 
-        <div class="collapse navbar-collapse" id="nav">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="/dashboard">Dashboard</a></li>
-                <li class="nav-item"><a class="nav-link active" href="/about">About</a></li>
-                <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
-            </ul>
-        </div>
+    <div class="collapse navbar-collapse justify-content-end" id="nav">
+        <ul class="navbar-nav ms-auto">
+            <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('dashboard') }}">Dashboard</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('result') }}">Result</a></li>
+            <li class="nav-item"><a class="nav-link active" href="/about">About</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('contact') }}">Contact</a></li>
+            <li class="nav-item"><a class="nav-link text-warning" href="/logout">Logout</a></li>
+        </ul>
     </div>
 </nav>
 
@@ -121,20 +131,21 @@
     <div class="container">
         <div class="row align-items-center">
 
-            <!-- LEFT TEXT -->
+            <!-- LEFT CONTENT -->
             <div class="col-lg-6">
                 <h1 class="about-title">About Us</h1>
 
                 <p class="about-text">
-                    Export Launchpad is a smart trade intelligence platform designed
-                    to empower Indian exporters. We help businesses discover
-                    profitable products, understand global demand, and reduce
-                    export risks using data-driven insights.
+                    Export Launchpad is a smart trade intelligence platform built to
+                    empower Indian exporters. We help businesses identify profitable
+                    products, analyze global demand, and reduce export risks using
+                    data-driven insights.
                 </p>
 
                 <p class="about-text">
-                    Our goal is to make exporting simple, transparent, and accessible
-                    for startups, MSMEs, and first-time exporters.
+                    Our mission is to simplify exporting for startups, MSMEs, and
+                    first-time exporters by providing clear guidance, analytics,
+                    and market intelligence.
                 </p>
 
                 <div class="mt-4">
@@ -145,13 +156,11 @@
                 </div>
             </div>
 
-            <!-- RIGHT IMAGES -->
+            <!-- RIGHT IMAGES (ONLY 2) -->
             <div class="col-lg-6">
                 <div class="image-grid">
-                    <img src="{{ url_for('static', filename='about1.jpg') }}" alt="Shipping Container">
+                    <img src="{{ url_for('static', filename='productnich.jpg') }}" alt="Product Niche">
                     <img src="{{ url_for('static', filename='about2.jpg') }}" alt="Global Trade">
-                    <img src="{{ url_for('static', filename='about3.jpg') }}" alt="Logistics Network">
-                    <img src="{{ url_for('static', filename='about4.jpg') }}" alt="Export Supply Chain">
                 </div>
             </div>
 
