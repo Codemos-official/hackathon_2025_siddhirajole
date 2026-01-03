@@ -1,38 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <title>Results | Export Launchpad</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Bootstrap 5 CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
     <style>
-        * { box-sizing: border-box; margin:0; padding:0; }
         body {
-            font-family: 'Segoe UI', Tahoma, sans-serif;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
             min-height: 100vh;
+            color: #fff;
             background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
-                        url("https://images.unsplash.com/photo-1581091012184-95b5c3b4d63e");
+                        url("https://images.unsplash.com/photo-1581091870620-9f1f0f1dc02c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxMTc3M3wwfDF8c2VhcmNofDh8fGV4cG9ydCUyMGlucG9ydHxlbnwwfHx8fDE2OTg0NDkxMzQ&ixlib=rb-4.0.3&q=80&w=1080");
             background-size: cover;
             background-position: center;
-            color: white;
         }
 
-        /* HEADER */
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 40px;
-            background: rgba(0,0,0,0.5);
-            backdrop-filter: blur(8px);
-        }
-        .logo { font-size: 24px; font-weight: bold; }
-        nav a {
-            color: white;
-            margin-left: 20px;
-            text-decoration: none;
+        /* Navbar */
+        .navbar { background: rgba(0,0,0,0.6) !important; backdrop-filter: blur(8px); }
+        .navbar-brand { font-weight: 700; letter-spacing: 0.5px; }
+        .navbar-nav .nav-link {
+            color: white !important;
             font-weight: 500;
+            margin-left: 15px;
             position: relative;
         }
-        nav a::after {
+        .navbar-nav .nav-link::after {
             content: "";
             position: absolute;
             width: 0;
@@ -42,97 +36,121 @@
             background: #ff7b00;
             transition: 0.3s;
         }
-        nav a:hover::after { width: 100%; }
+        .navbar-nav .nav-link:hover::after { width: 100%; }
+        .navbar-nav.ms-auto { margin-left:auto !important; }
 
-        /* MAIN CONTENT */
-        .container {
-            max-width: 900px;
-            margin: 60px auto;
-            background: rgba(255,255,255,0.1);
-            padding: 40px;
-            border-radius: 20px;
-            backdrop-filter: blur(12px);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+        /* Report Section */
+        .report-wrapper { padding: 60px 20px; }
+        .report-card {
+            background: rgba(255,255,255,0.15);
+            padding: 30px;
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            margin-bottom: 30px;
         }
+        .report-card h3 { margin-bottom: 20px; color: #ff7b00; }
+        .report-card p { font-size: 1rem; color: #fff; }
 
-        h1 {
-            text-align: center;
-            font-size: 32px;
-            margin-bottom: 20px;
-            color: #ffb347;
-        }
+        /* Profit Table */
+        table { background: rgba(255,255,255,0.15); backdrop-filter: blur(5px); }
+        th, td { color: #fff !important; }
 
-        p {
-            font-size: 17px;
-            line-height: 1.8;
-            margin-bottom: 20px;
-            color: #f1f1f1;
+        /* Section Titles */
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #ffd700;
         }
-
-        /* BUTTON BACK */
-        .back-btn-container {
-            display: flex;
-            justify-content: center;
-            margin-top: 20px;
-        }
-        .back-btn {
-            text-decoration: none;
-            padding: 12px 22px;
-            background: rgba(255,255,255,0.2);
-            color: white;
-            border-radius: 10px;
-            font-weight: 500;
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(255,255,255,0.3);
-            transition: 0.3s;
-        }
-        .back-btn:hover {
-            background: rgba(255,255,255,0.35);
-            transform: translateY(-2px);
-        }
-
     </style>
 </head>
 <body>
 
-<header>
-    <div class="logo">🚀 Export Launchpad</div>
-    <nav>
-        <a href="/">Home</a>
-        <a href="{{ url_for('dashboard') }}">Dashboard</a>
-        <a href="{{ url_for('results') }}">Results</a>
-        <a href="{{ url_for('about') }}">About</a>
-        <a href="/contact">Contact Us</a>
-        <a href="/logout">Logout</a>
-    </nav>
-</header>
-
-<div class="container">
-    <h1>Results</h1>
-
-    <p>
-        Small Indian exporters often face significant challenges when entering international markets, including identifying the right products to export, understanding demand, calculating potential profits, and assessing associated risks. Existing trade portals are either too complex, scattered, or filled with technical jargon, making it difficult for beginners and micro-exporters to make informed decisions.
-    </p>
-
-    <p>
-        Export Launchpad provides actionable results for users by combining product discovery, profitability calculations, risk assessment, and step-by-step export guidance. Users can view insights into:
-    </p>
-
-    <ul style="margin-left:20px; margin-bottom:20px;">
-        <li>High-demand niche products suitable for export.</li>
-        <li>Expected profit and break-even analysis for selected products.</li>
-        <li>Payment, regulatory, and logistics risks for each target market.</li>
-        <li>Smart document checklists for smoother export operations.</li>
-    </ul>
-
-    <p>
-        This integrated approach helps exporters make confident decisions and minimize financial or operational risks.
-    </p>
-
-    <div class="back-btn-container">
-        <a href="{{ url_for('dashboard') }}" class="back-btn">← Back to Dashboard</a>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container-fluid px-4">
+        <a class="navbar-brand" href="{{ url_for('home') }}">Export Launchpad</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="mainNavbar">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('home') }}">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('dashboard') }}">Dashboard</a></li>
+                <li class="nav-item"><a class="nav-link active" href="{{ url_for('result') }}">Results</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('about') }}">About</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('contact') }}">Contact Us</a></li>
+                <li class="nav-item"><a class="nav-link text-danger" href="{{ url_for('logout') }}">Logout</a></li>
+            </ul>
+        </div>
     </div>
-</div>
+</nav>
 
+<!-- Report Section -->
+<section class="container report-wrapper">
+
+    <!-- User Input Summary -->
+    <div class="report-card">
+        <h3>Export Report Summary</h3>
+        <p><strong>Product:</strong> Spices</p>
+        <p><strong>Destination Country:</strong> USA</p>
+        <p><strong>Quantity:</strong> 100 kg</p>
+        <p><strong>Generated On:</strong> {{ current_date }}</p>
+    </div>
+
+    <!-- Demand Analysis -->
+    <div class="report-card">
+        <div class="section-title">Demand Analysis</div>
+        <p>The product <strong>Spices</strong> is currently <strong>High in Demand</strong> in the USA market.</p>
+        <p>Trends show consistent import growth over the last 6 months. Recommended for export.</p>
+    </div>
+
+    <!-- Profit Estimation -->
+    <div class="report-card">
+        <div class="section-title">Profit Estimation</div>
+        <table class="table table-borderless">
+            <thead>
+                <tr>
+                    <th>Quantity</th>
+                    <th>Cost per Unit ($)</th>
+                    <th>Estimated Selling Price ($)</th>
+                    <th>Estimated Profit ($)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>100 kg</td>
+                    <td>5</td>
+                    <td>12</td>
+                    <td>700</td>
+                </tr>
+                <tr>
+                    <td>500 kg</td>
+                    <td>5</td>
+                    <td>12</td>
+                    <td>3500</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Required Documents -->
+    <div class="report-card">
+        <div class="section-title">Required Documents & Guidelines</div>
+        <ul>
+            <li>Commercial Invoice</li>
+            <li>Packing List</li>
+            <li>Certificate of Origin</li>
+            <li>Export License (if applicable)</li>
+            <li>FDA / Regulatory Approval (for food products)</li>
+        </ul>
+        <p>Follow destination country regulations strictly to avoid shipment delays.</p>
+    </div>
+
+</section>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
