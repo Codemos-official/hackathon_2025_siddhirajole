@@ -1,156 +1,212 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <title>Results | Export Launchpad</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <!-- Bootstrap 5 CDN -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <meta charset="UTF-8">
+    <title>Export Result | Export Launchpad</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     <style>
-        body {
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-            min-height: 100vh;
-            color: #fff;
-            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
-                        url("https://images.unsplash.com/photo-1581091870620-9f1f0f1dc02c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxMTc3M3wwfDF8c2VhcmNofDh8fGV4cG9ydCUyMGlucG9ydHxlbnwwfHx8fDE2OTg0NDkxMzQ&ixlib=rb-4.0.3&q=80&w=1080");
-            background-size: cover;
-            background-position: center;
+        body{
+            background: #f4f7fb;
+            font-family: "Segoe UI", sans-serif;
         }
 
         /* Navbar */
-        .navbar { background: rgba(0,0,0,0.6) !important; backdrop-filter: blur(8px); }
-        .navbar-brand { font-weight: 700; letter-spacing: 0.5px; }
-        .navbar-nav .nav-link {
-            color: white !important;
-            font-weight: 500;
-            margin-left: 15px;
-            position: relative;
+        .navbar{
+            background:#0b5ed7;
         }
-        .navbar-nav .nav-link::after {
-            content: "";
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -4px;
-            left: 0;
-            background: #ff7b00;
-            transition: 0.3s;
+
+        /* Page container */
+        .page-box{
+            background:white;
+            border-radius:12px;
+            padding:25px;
+            box-shadow:0 8px 20px rgba(0,0,0,0.08);
         }
-        .navbar-nav .nav-link:hover::after { width: 100%; }
-        .navbar-nav.ms-auto { margin-left:auto !important; }
 
-        /* Report Section */
-        .report-wrapper { padding: 60px 20px; }
-        .report-card {
-            background: rgba(255,255,255,0.15);
-            padding: 30px;
-            border-radius: 16px;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-            margin-bottom: 30px;
+        /* Summary cards */
+        .stat-card{
+            background:#eef4ff;
+            border-radius:10px;
+            padding:15px;
+            text-align:center;
+            font-weight:600;
         }
-        .report-card h3 { margin-bottom: 20px; color: #ff7b00; }
-        .report-card p { font-size: 1rem; color: #fff; }
 
-        /* Profit Table */
-        table { background: rgba(255,255,255,0.15); backdrop-filter: blur(5px); }
-        th, td { color: #fff !important; }
+        .stat-value{
+            font-size:22px;
+            color:#0b5ed7;
+        }
 
-        /* Section Titles */
-        .section-title {
-            font-size: 1.5rem;
-            font-weight: bold;
-            margin-bottom: 15px;
-            color: #ffd700;
+        .section-title{
+            font-weight:700;
+            margin-bottom:10px;
+        }
+
+        .badge-good{
+            background:#d1e7dd;
+            color:#0f5132;
+            font-weight:600;
+        }
+
+        .badge-bad{
+            background:#f8d7da;
+            color:#842029;
+            font-weight:600;
         }
     </style>
 </head>
 <body>
 
-<!-- Navbar -->
+<!-- NAVBAR -->
 <nav class="navbar navbar-expand-lg navbar-dark">
     <div class="container-fluid px-4">
-        <a class="navbar-brand" href="{{ url_for('home') }}">Export Launchpad</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="mainNavbar">
+        <a class="navbar-brand fw-bold" href="#">Export Launchpad</a>
+        <div class="collapse navbar-collapse">
             <ul class="navbar-nav ms-auto">
-                <li class="nav-item"><a class="nav-link" href="{{ url_for('home') }}">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ url_for('dashboard') }}">Dashboard</a></li>
-                <li class="nav-item"><a class="nav-link active" href="{{ url_for('result') }}">Results</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ url_for('about') }}">About</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ url_for('contact') }}">Contact Us</a></li>
-                <li class="nav-item"><a class="nav-link text-danger" href="{{ url_for('logout') }}">Logout</a></li>
+                <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="/dashboard">Dashboard</a></li>
+                <li class="nav-item"><a class="nav-link active" href="/result">Result</a></li>
+                <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+                <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
+                <li class="nav-item"><a class="nav-link text-warning" href="/logout">Logout</a></li>
             </ul>
         </div>
     </div>
 </nav>
 
-<!-- Report Section -->
-<section class="container report-wrapper">
+<div class="container my-5">
 
-    <!-- User Input Summary -->
-    <div class="report-card">
-        <h3>Export Report Summary</h3>
-        <p><strong>Product:</strong> Spices</p>
-        <p><strong>Destination Country:</strong> USA</p>
-        <p><strong>Quantity:</strong> 100 kg</p>
-        <p><strong>Generated On:</strong> {{ current_date }}</p>
+    <!-- INPUT FORM -->
+    <div class="page-box mb-4">
+        <h4 class="section-title">Generate Export Report</h4>
+
+        <div class="row g-3">
+            <div class="col-md-5">
+                <label class="form-label">Product Name</label>
+                <input type="text" id="product" class="form-control" placeholder="e.g. Spices">
+            </div>
+
+            <div class="col-md-5">
+                <label class="form-label">Export Country / City</label>
+                <input type="text" id="country" class="form-control" placeholder="e.g. Germany">
+            </div>
+
+            <div class="col-md-2 d-flex align-items-end">
+                <button class="btn btn-primary w-100" onclick="generateReport()">Generate</button>
+            </div>
+        </div>
     </div>
 
-    <!-- Demand Analysis -->
-    <div class="report-card">
-        <div class="section-title">Demand Analysis</div>
-        <p>The product <strong>Spices</strong> is currently <strong>High in Demand</strong> in the USA market.</p>
-        <p>Trends show consistent import growth over the last 6 months. Recommended for export.</p>
+    <!-- RESULT SECTION -->
+    <div id="reportSection" style="display:none">
+
+        <!-- SUMMARY -->
+        <div class="row g-3 mb-4">
+            <div class="col-md-3">
+                <div class="stat-card">
+                    Estimated Demand
+                    <div class="stat-value">High</div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stat-card">
+                    Avg Profit / Unit
+                    <div class="stat-value">$12</div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stat-card">
+                    Risk Level
+                    <div class="stat-value">Medium</div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stat-card">
+                    Export Verdict
+                    <div class="badge badge-good p-2">Recommended</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CHART + INFO -->
+        <div class="row g-4">
+
+            <!-- CHART -->
+            <div class="col-md-7">
+                <div class="page-box">
+                    <h5 class="section-title">Demand Trend</h5>
+                    <canvas id="demandChart"></canvas>
+                </div>
+            </div>
+
+            <!-- GUIDELINES -->
+            <div class="col-md-5">
+                <div class="page-box">
+                    <h5 class="section-title">Guidelines</h5>
+                    <ul>
+                        <li>Check HS Code classification</li>
+                        <li>Ensure quality & packaging standards</li>
+                        <li>Follow destination country regulations</li>
+                        <li>Prefer LC or Advance Payment</li>
+                    </ul>
+
+                    <h5 class="section-title mt-3">Required Documents</h5>
+                    <ul>
+                        <li>Commercial Invoice</li>
+                        <li>Packing List</li>
+                        <li>Certificate of Origin</li>
+                        <li>Bill of Lading / Airway Bill</li>
+                        <li>IEC Certificate</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
     </div>
 
-    <!-- Profit Estimation -->
-    <div class="report-card">
-        <div class="section-title">Profit Estimation</div>
-        <table class="table table-borderless">
-            <thead>
-                <tr>
-                    <th>Quantity</th>
-                    <th>Cost per Unit ($)</th>
-                    <th>Estimated Selling Price ($)</th>
-                    <th>Estimated Profit ($)</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>100 kg</td>
-                    <td>5</td>
-                    <td>12</td>
-                    <td>700</td>
-                </tr>
-                <tr>
-                    <td>500 kg</td>
-                    <td>5</td>
-                    <td>12</td>
-                    <td>3500</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+</div>
 
-    <!-- Required Documents -->
-    <div class="report-card">
-        <div class="section-title">Required Documents & Guidelines</div>
-        <ul>
-            <li>Commercial Invoice</li>
-            <li>Packing List</li>
-            <li>Certificate of Origin</li>
-            <li>Export License (if applicable)</li>
-            <li>FDA / Regulatory Approval (for food products)</li>
-        </ul>
-        <p>Follow destination country regulations strictly to avoid shipment delays.</p>
-    </div>
+<!-- JS -->
+<script>
+function generateReport(){
+    const product = document.getElementById("product").value;
+    const country = document.getElementById("country").value;
 
-</section>
+    if(product === "" || country === ""){
+        alert("Please enter product and country");
+        return;
+    }
 
-<!-- Bootstrap JS -->
+    document.getElementById("reportSection").style.display = "block";
+
+    const ctx = document.getElementById('demandChart');
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['Jan','Feb','Mar','Apr','May','Jun'],
+            datasets: [{
+                label: 'Demand Index',
+                data: [40,55,60,70,80,90],
+                borderColor: '#0b5ed7',
+                backgroundColor: 'rgba(11,94,215,0.2)',
+                fill:true,
+                tension:0.3
+            }]
+        },
+        options: {
+            scales: { y: { beginAtZero:true } }
+        }
+    });
+}
+</script>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
