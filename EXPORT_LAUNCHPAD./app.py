@@ -73,7 +73,22 @@ def risk_radar():
 @app.route("/smart_docs")
 def smart_docs():
     return render_template("smart_docs.html")
+#-------------------result----------------
 
+# RESULTS
+@app.route("/result")
+def result():
+    return render_template("result.html")  # create this template
+
+# ABOUT
+@app.route("/about")
+def about():
+    return render_template("about.html")    # create this template
+
+# CONTACT US
+@app.route("/contact")
+def contact():
+    return render_template("contact.html") 
 #----------------smart docs---------------
 @app.route("/iec")
 def iec():
@@ -103,5 +118,5 @@ def logout():
 
 
 if __name__ == "__main__":
-    app.run(debug=True, port=5000)
+    app.run(debug=True, port=5001)
 
