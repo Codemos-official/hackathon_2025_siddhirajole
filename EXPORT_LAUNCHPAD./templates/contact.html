@@ -1,81 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <title>Contact Us | Export Launchpad</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <!-- Bootstrap 5 CDN -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <style>
-        body {
-            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)),
-                        url("https://images.unsplash.com/photo-1607746882042-944635dfe10e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxMTc3M3wwfDF8c2VhcmNofDF8fGV4cG9ydCUyMGlucG9ydHxlbnwwfHx8fDE2OTg0NDkxMzQ&ixlib=rb-4.0.3&q=80&w=1080");
-            background-size: cover;
-            background-position: center;
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-            min-height: 100vh;
-            color: white;
-        }
+<meta charset="UTF-8" />
+<title>Contact Us | Export Launchpad</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+<style>
+/* Page Background */
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #a8edea, #fed6e3); /* pastel gradient */
+    min-height: 100vh;
+    color: #333;
+}
 
-        /* Navbar */
-        .navbar { background: rgba(0,0,0,0.6) !important; backdrop-filter: blur(8px); }
-        .navbar-brand { font-weight: 700; letter-spacing: 0.5px; }
-        .navbar-nav .nav-link {
-            color: white !important;
-            font-weight: 500;
-            margin-left: 15px;
-            position: relative;
-        }
-        .navbar-nav .nav-link::after {
-            content: "";
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -4px;
-            left: 0;
-            background: #ff7b00;
-            transition: 0.3s;
-        }
-        .navbar-nav .nav-link:hover::after { width: 100%; }
-        .navbar-nav.ms-auto { margin-left:auto !important; }
+/* Navbar */
+.navbar { 
+    background: rgba(255,255,255,0.85) !important; 
+    backdrop-filter: blur(8px); 
+    position: relative; 
+}
+.navbar-brand { font-weight: 700; letter-spacing: 0.5px; color: #333 !important; }
+.navbar-nav .nav-link { color: #333 !important; font-weight: 500; margin-left: 15px; position: relative; }
+.navbar-nav .nav-link::after { content: ""; position: absolute; width: 0; height: 2px; bottom: -4px; left: 0; background: #ff7b00; transition: 0.3s; }
+.navbar-nav .nav-link:hover::after { width: 100%; }
+.navbar-nav.ms-auto { margin-left:auto !important; }
 
-        /* Contact Section */
-        .contact-wrapper {
-            min-height: calc(100vh - 72px);
-            display: flex;
-            align-items: center;
-            padding: 40px 20px;
-        }
-        .contact-card {
-            background: rgba(255,255,255,0.15);
-            border-radius: 12px;
-            backdrop-filter: blur(10px);
-            padding: 2.5rem;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-        }
-        .brand-panel {
-            background: linear-gradient(135deg, #0f766e, #0ea5e9);
-            border-radius: 12px;
-            color: #ffffff;
-            padding: 2.5rem;
-            height: 100%;
-        }
-        .brand-title { font-size: 2.3rem; font-weight: 800; text-transform: lowercase; letter-spacing: 1px; }
-        .brand-subtitle { font-size: 0.95rem; opacity: 0.9; }
+/* Contact Section */
+.contact-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 20px;
+    min-height: calc(100vh - 72px);
+}
 
-        .info-item { margin-bottom: 1rem; }
-        .info-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; opacity: 0.8; }
-        .info-value { font-size: 0.95rem; font-weight: 500; }
+/* Form Card */
+.contact-card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 2.5rem;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+    max-width: 700px;
+    width: 100%;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+.contact-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+}
 
-        .form-label { font-size: 0.9rem; font-weight: 500; }
-        .btn-primary { background: #0f766e; border-color: #0f766e; }
-        .btn-primary:hover { background: #0d5f59; border-color: #0d5f59; }
-    </style>
+/* Form Inputs */
+.form-label { font-size: 0.9rem; font-weight: 500; color: #555; }
+.form-control { background: #f7f7f7; border: 1px solid #ddd; color: #333; }
+.form-control::placeholder { color: #aaa; }
+.btn-primary { background: #ff7b00; border-color: #ff7b00; font-weight: 500; }
+.btn-primary:hover { background: #ff9500; border-color: #ff9500; }
+
+/* Text inside form */
+.text-muted { color: #666 !important; font-size: 0.9rem; }
+
+/* Responsive adjustments */
+@media(max-width: 768px){
+    .contact-wrapper { padding: 60px 15px; }
+    .contact-card { padding: 2rem; }
+}
+</style>
 </head>
 <body>
 
 <!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-dark">
+<nav class="navbar navbar-expand-lg navbar-light">
     <div class="container-fluid px-4">
         <a class="navbar-brand" href="{{ url_for('home') }}">Export Launchpad</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
@@ -94,96 +91,46 @@
     </div>
 </nav>
 
-<!-- Contact Section -->
-<section class="container contact-wrapper">
-    <div class="row g-4 w-100">
-        <!-- Left: Contact Form -->
-        <div class="col-lg-7">
-            <div class="contact-card h-100">
-                <h2 class="mb-1">Contact Us</h2>
-                <p class="text-muted mb-4">
-                    Get in touch for export–import inquiries, partnerships, or support.
-                </p>
-
-                <form action="#" method="post">
-                    <div class="row g-3">
-                        <div class="col-md-6">
-                            <label for="name" class="form-label">Full Name</label>
-                            <input type="text" id="name" name="name" class="form-control" placeholder="Enter your name" required>
-                        </div>
-                        <div class="col-md-6">
-                            <label for="company" class="form-label">Company / Organization</label>
-                            <input type="text" id="company" name="company" class="form-control" placeholder="Company name">
-                        </div>
-                        <div class="col-md-6">
-                            <label for="email" class="form-label">Email Address</label>
-                            <input type="email" id="email" name="email" class="form-control" placeholder="you@example.com" required>
-                        </div>
-                        <div class="col-md-6">
-                            <label for="phone" class="form-label">Phone Number</label>
-                            <input type="tel" id="phone" name="phone" class="form-control" placeholder="+91 9738688783">
-                        </div>
-                        <div class="col-12">
-                            <label for="subject" class="form-label">Subject</label>
-                            <input type="text" id="subject" name="subject" class="form-control" placeholder="Inquiry subject" required>
-                        </div>
-                        <div class="col-12">
-                            <label for="message" class="form-label">Message</label>
-                            <textarea id="message" name="message" rows="4" class="form-control" placeholder="Briefly describe your requirement" required></textarea>
-                        </div>
-                        <div class="col-12 d-flex justify-content-between align-items-center mt-3">
-                            <small class="text-muted">
-                                We usually respond within 1–2 business days.
-                            </small>
-                            <button type="submit" class="btn btn-primary px-4">
-                                Send Message
-                            </button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-
-        <!-- Right: Brand / Contact Info -->
-        <div class="col-lg-5">
-            <div class="brand-panel d-flex flex-column justify-content-between">
-                <div>
-                    <div class="text-end">
-                        <div class="brand-title">export_launchpad</div>
-                        <p class="brand-subtitle mt-2">
-                            Smart gateway for global trade. Streamline your export–import operations with a single, unified platform.
-                        </p>
-                    </div>
+<!-- Contact Form Section -->
+<section class="contact-wrapper">
+    <div class="contact-card">
+        <h2 class="mb-1">Contact Us</h2>
+        <p class="text-muted mb-4">Get in touch for export–import inquiries, partnerships, or support.</p>
+        <form action="#" method="post">
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label for="name" class="form-label">Full Name</label>
+                    <input type="text" id="name" name="name" class="form-control" placeholder="Enter your name" required>
                 </div>
-
-                <div class="mt-4">
-                    <div class="info-item">
-                        <div class="info-label">Phone</div>
-                        <div class="info-value">+91 9738688783</div>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-label">Email</div>
-                        <div class="info-value">
-                            <a href="mailto:siddhi@gmail.com" class="text-white text-decoration-none">
-                                siddhi@gmail.com
-                            </a>
-                        </div>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-label">Business Hours</div>
-                        <div class="info-value">Mon – Sat, 9:00 AM – 7:00 PM IST</div>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-label">Focus Regions</div>
-                        <div class="info-value">Asia, Middle East, Europe, North America</div>
-                    </div>
+                <div class="col-md-6">
+                    <label for="company" class="form-label">Company / Organization</label>
+                    <input type="text" id="company" name="company" class="form-control" placeholder="Company name">
+                </div>
+                <div class="col-md-6">
+                    <label for="email" class="form-label">Email Address</label>
+                    <input type="email" id="email" name="email" class="form-control" placeholder="you@example.com" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="phone" class="form-label">Phone Number</label>
+                    <input type="tel" id="phone" name="phone" class="form-control" placeholder="+91 9738688783">
+                </div>
+                <div class="col-12">
+                    <label for="subject" class="form-label">Subject</label>
+                    <input type="text" id="subject" name="subject" class="form-control" placeholder="Inquiry subject" required>
+                </div>
+                <div class="col-12">
+                    <label for="message" class="form-label">Message</label>
+                    <textarea id="message" name="message" rows="4" class="form-control" placeholder="Briefly describe your requirement" required></textarea>
+                </div>
+                <div class="col-12 d-flex justify-content-between align-items-center mt-3">
+                    <small class="text-muted">We usually respond within 1–2 business days.</small>
+                    <button type="submit" class="btn btn-primary px-4">Send Message</button>
                 </div>
             </div>
-        </div>
+        </form>
     </div>
 </section>
 
-<!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
