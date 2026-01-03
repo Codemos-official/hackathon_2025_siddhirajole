@@ -1,17 +1,138 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Login</title>
+    <meta charset="UTF-8">
+    <title>Results | Export Launchpad</title>
+    <style>
+        * { box-sizing: border-box; margin:0; padding:0; }
+        body {
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
+                        url("https://images.unsplash.com/photo-1581091012184-95b5c3b4d63e");
+            background-size: cover;
+            background-position: center;
+            color: white;
+        }
+
+        /* HEADER */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(8px);
+        }
+        .logo { font-size: 24px; font-weight: bold; }
+        nav a {
+            color: white;
+            margin-left: 20px;
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+        }
+        nav a::after {
+            content: "";
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background: #ff7b00;
+            transition: 0.3s;
+        }
+        nav a:hover::after { width: 100%; }
+
+        /* MAIN CONTENT */
+        .container {
+            max-width: 900px;
+            margin: 60px auto;
+            background: rgba(255,255,255,0.1);
+            padding: 40px;
+            border-radius: 20px;
+            backdrop-filter: blur(12px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 32px;
+            margin-bottom: 20px;
+            color: #ffb347;
+        }
+
+        p {
+            font-size: 17px;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            color: #f1f1f1;
+        }
+
+        /* BUTTON BACK */
+        .back-btn-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .back-btn {
+            text-decoration: none;
+            padding: 12px 22px;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border-radius: 10px;
+            font-weight: 500;
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,255,255,0.3);
+            transition: 0.3s;
+        }
+        .back-btn:hover {
+            background: rgba(255,255,255,0.35);
+            transform: translateY(-2px);
+        }
+
+    </style>
 </head>
 <body>
-    <h2>Login</h2>
 
-    <form method="POST">
-        <input type="email" name="email" placeholder="Email" required><br><br>
-        <input type="password" name="password" placeholder="Password" required><br><br>
-        <button type="submit">Login</button>
-    </form>
+<header>
+    <div class="logo">🚀 Export Launchpad</div>
+    <nav>
+        <a href="/">Home</a>
+        <a href="{{ url_for('dashboard') }}">Dashboard</a>
+        <a href="{{ url_for('results') }}">Results</a>
+        <a href="{{ url_for('about') }}">About</a>
+        <a href="/contact">Contact Us</a>
+        <a href="/logout">Logout</a>
+    </nav>
+</header>
 
-    <p>New user? <a href="/signup">Sign up</a></p>
+<div class="container">
+    <h1>Results</h1>
+
+    <p>
+        Small Indian exporters often face significant challenges when entering international markets, including identifying the right products to export, understanding demand, calculating potential profits, and assessing associated risks. Existing trade portals are either too complex, scattered, or filled with technical jargon, making it difficult for beginners and micro-exporters to make informed decisions.
+    </p>
+
+    <p>
+        Export Launchpad provides actionable results for users by combining product discovery, profitability calculations, risk assessment, and step-by-step export guidance. Users can view insights into:
+    </p>
+
+    <ul style="margin-left:20px; margin-bottom:20px;">
+        <li>High-demand niche products suitable for export.</li>
+        <li>Expected profit and break-even analysis for selected products.</li>
+        <li>Payment, regulatory, and logistics risks for each target market.</li>
+        <li>Smart document checklists for smoother export operations.</li>
+    </ul>
+
+    <p>
+        This integrated approach helps exporters make confident decisions and minimize financial or operational risks.
+    </p>
+
+    <div class="back-btn-container">
+        <a href="{{ url_for('dashboard') }}" class="back-btn">← Back to Dashboard</a>
+    </div>
+</div>
+
 </body>
 </html>
