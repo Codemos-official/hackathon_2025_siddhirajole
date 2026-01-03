@@ -3,63 +3,196 @@
 <head>
     <meta charset="UTF-8">
     <title>Dashboard | Export Launchpad</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <style>
-        body { font-family: Arial; background: #f0f4f8; margin:0; }
-        header { background: #1e90ff; color:white; padding:20px 40px; display:flex; justify-content:space-between; align-items:center;}
-        header .logo { font-weight:bold; }
-        header nav a { color:white; margin-left:20px; text-decoration:none; font-weight:bold;}
-        header nav a:hover { text-decoration:underline; }
-
-        .container { padding:40px; display:flex; justify-content:space-around; flex-wrap:wrap; gap:30px; }
-
-        .box {
-            background:white; 
-            padding:40px; 
-            border-radius:12px; 
-            width:250px; 
-            text-align:center; 
-            box-shadow:0 4px 12px rgba(0,0,0,0.15); 
-            cursor:pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
-            text-decoration: none; /* remove underline */
-            color: inherit; /* keep text color */
+        * { box-sizing: border-box; margin:0; padding:0; }
+        body {
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
+                        url("https://images.unsplash.com/photo-1520607162513-77705c0f0d4a");
+            background-size: cover;
+            background-position: center;
+            color: white;
         }
-        .box:hover { transform: translateY(-5px); box-shadow:0 8px 20px rgba(0,0,0,0.2); }
 
-        .box h2 { margin-bottom:15px; color:#1e90ff; }
-        .box p { color:#555; }
+        /* HEADER */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(8px);
+        }
+
+        .logo { font-size: 24px; font-weight: bold; }
+        nav a {
+            color: white;
+            margin-left: 20px;
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+        }
+        nav a::after {
+            content: "";
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background: #ff7b00;
+            transition: 0.3s;
+        }
+        nav a:hover::after { width: 100%; }
+
+        /* MAIN GRID */
+        .container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+            gap: 40px;
+            padding: 60px 40px;
+            justify-items: center;
+        }
+
+        /* FLIP CARDS */
+        .flip-card {
+            background: transparent;
+            width: 260px;
+            height: 200px;
+            perspective: 1000px;
+            cursor: pointer;
+        }
+
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+            border-radius: 18px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+        }
+
+        .flip-card:hover .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 18px;
+            backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .flip-card-front {
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(12px);
+            color: #fff;
+        }
+
+        .flip-card-front h2 { color: #ffb347; margin-bottom: 10px; }
+        .flip-card-front p { color: #f1f1f1; font-size: 14px; }
+
+        .flip-card-back {
+            background: rgba(255,123,0,0.85);
+            color: #fff;
+            transform: rotateY(180deg);
+            font-weight: bold;
+            font-size: 16px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        @media(max-width:800px){
+            .container { grid-template-columns: 1fr; grid-template-rows: auto; }
+        }
+
+        /* REMOVE TEXT DECORATION INSIDE BACK */
+        .flip-card-back a {
+            text-decoration: none;
+            color: white;
+            font-size: 18px;
+        }
+
     </style>
 </head>
 <body>
 
 <header>
-    <div class="logo">Export Launchpad</div>
+    <div class="logo">🚀 Export Launchpad</div>
     <nav>
+        <a href="/">Home</a>
+        <a href="{{ url_for('dashboard') }}">Dashboard</a>
+        <a href="/results">Results</a>
+        <a href="/about">About</a>
+        <a href="/contact">Contact Us</a>
         <a href="/logout">Logout</a>
     </nav>
 </header>
 
 <div class="container">
-    <a href="/niche_products" class="box">
-        <h2>Niche Product Finder</h2>
-        <p>Discover unique products with high export demand.</p>
+
+    <!-- CARD 1 -->
+    <a href="/niche_products" class="flip-card">
+        <div class="flip-card-inner">
+            <div class="flip-card-front">
+                <h2>Niche Product Finder</h2>
+                <p>Discover unique products with high export demand.</p>
+            </div>
+            <div class="flip-card-back">
+                Go →
+            </div>
+        </div>
     </a>
 
-    <a href="/profit_snapshot" class="box">
-        <h2>Profit Snapshot</h2>
-        <p>Calculate expected profit and break-even points.</p>
+    <!-- CARD 2 -->
+    <a href="/profit_snapshot" class="flip-card">
+        <div class="flip-card-inner">
+            <div class="flip-card-front">
+                <h2>Profit Snapshot</h2>
+                <p>Calculate expected profit and break-even points.</p>
+            </div>
+            <div class="flip-card-back">
+                Go →
+            </div>
+        </div>
     </a>
 
-    <a href="/risk_radar" class="box">
-        <h2>Risk Radar</h2>
-        <p>Analyze payment, regulation, and logistics risks.</p>
+    <!-- CARD 3 -->
+    <a href="/risk_radar" class="flip-card">
+        <div class="flip-card-inner">
+            <div class="flip-card-front">
+                <h2>Risk Radar</h2>
+                <p>Analyze payment, regulation, and logistics risks.</p>
+            </div>
+            <div class="flip-card-back">
+                Go →
+            </div>
+        </div>
     </a>
 
-    <a href="/smart_docs" class="box">
-        <h2>Smart Docs</h2>
-        <p>Get the required documents & next steps for exporting.</p>
+    <!-- CARD 4 -->
+    <a href="/smart_docs" class="flip-card">
+        <div class="flip-card-inner">
+            <div class="flip-card-front">
+                <h2>Smart Docs</h2>
+                <p>Get required documents & next steps for exporting.</p>
+            </div>
+            <div class="flip-card-back">
+                all the documents you need to knaoe about →
+            </div>
+        </div>
     </a>
+
 </div>
 
 </body>
