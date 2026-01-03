@@ -5,57 +5,92 @@
     <title>Dashboard | Export Launchpad</title>
 
     <style>
-        * { box-sizing: border-box; margin:0; padding:0; }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
         body {
             font-family: 'Segoe UI', Tahoma, sans-serif;
             min-height: 100vh;
-            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
-                        url("https://images.unsplash.com/photo-1520607162513-77705c0f0d4a");
-            background-size: cover;
-            background-position: center;
+            background:
+                linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.55)),
+                url("{{ url_for('static', filename='dashboard.jpg') }}");
+            background-size: cover;              /* keep full image */
+            background-position: center top;     /* 👈 less zoom feel */
+            background-repeat: no-repeat;
+            background-attachment: fixed;
             color: white;
         }
 
-        /* HEADER */
+        /* HEADER / NAVBAR */
         header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 40px;
-            background: rgba(0,0,0,0.5);
-            backdrop-filter: blur(8px);
+            padding: 18px 48px;
+            background: rgba(0,0,0,0.4);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
         }
 
-        .logo { font-size: 24px; font-weight: bold; }
+        .logo {
+            font-size: 24px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+        }
 
         nav a {
-            color: white;
-            margin-left: 20px;
+            color: #f1f1f1;
             text-decoration: none;
             font-weight: 500;
+            font-size: 15px;
             position: relative;
+            padding-bottom: 4px;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #ffb347;
         }
 
         nav a::after {
             content: "";
             position: absolute;
+            left: 0;
+            bottom: 0;
             width: 0;
             height: 2px;
-            bottom: -4px;
-            left: 0;
             background: #ff7b00;
-            transition: 0.3s;
+            transition: width 0.3s ease;
         }
 
-        nav a:hover::after { width: 100%; }
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* ACTIVE PAGE */
+        nav a.active {
+            color: #ffb347;
+        }
+
+        nav a.active::after {
+            width: 100%;
+        }
 
         /* GRID */
         .container {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 60px;
-            padding: 80px 40px;
+            padding: 90px 40px;
             justify-items: center;
         }
 
@@ -64,7 +99,6 @@
             width: 320px;
             height: 240px;
             perspective: 1000px;
-            cursor: pointer;
             text-decoration: none;
         }
 
@@ -72,10 +106,10 @@
             position: relative;
             width: 100%;
             height: 100%;
-            transition: transform 0.8s;
+            transition: transform 0.8s ease;
             transform-style: preserve-3d;
             border-radius: 22px;
-            box-shadow: 0 12px 30px rgba(0,0,0,0.45);
+            box-shadow: 0 14px 35px rgba(0,0,0,0.45);
         }
 
         .flip-card:hover .flip-card-inner {
@@ -93,7 +127,7 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 24px;
+            padding: 26px;
             text-align: center;
         }
 
@@ -104,7 +138,7 @@
 
         .flip-card-front h2 {
             color: #ffb347;
-            margin-bottom: 12px;
+            margin-bottom: 14px;
             font-size: 22px;
         }
 
@@ -114,13 +148,13 @@
         }
 
         .flip-card-back {
-            background: rgba(255,123,0,0.9);
+            background: rgba(255,123,0,0.95);
             transform: rotateY(180deg);
             font-size: 20px;
-            font-weight: bold;
+            font-weight: 600;
         }
 
-        /* CENTER BOTTOM CARD */
+        /* CENTER CARD */
         .center-card {
             grid-column: 1 / span 2;
         }
@@ -134,6 +168,11 @@
             .center-card {
                 grid-column: auto;
             }
+
+            header {
+                flex-direction: column;
+                gap: 12px;
+            }
         }
     </style>
 </head>
@@ -143,17 +182,16 @@
     <div class="logo">🚀 Export Launchpad</div>
     <nav>
         <a href="/">Home</a>
-        <a href="{{ url_for('dashboard') }}">Dashboard</a>
+        <a href="{{ url_for('dashboard') }}" class="active">Dashboard</a>
         <a href="/results">Results</a>
         <a href="/about">About</a>
-        <a href="/contact">Contact Us</a>
+        <a href="/contact">Contact</a>
         <a href="/logout">Logout</a>
     </nav>
 </header>
 
 <div class="container">
 
-    <!-- TOP LEFT -->
     <a href="/niche_products" class="flip-card">
         <div class="flip-card-inner">
             <div class="flip-card-front">
@@ -164,7 +202,6 @@
         </div>
     </a>
 
-    <!-- TOP RIGHT -->
     <a href="/risk_radar" class="flip-card">
         <div class="flip-card-inner">
             <div class="flip-card-front">
@@ -175,7 +212,6 @@
         </div>
     </a>
 
-    <!-- BOTTOM CENTER -->
     <a href="/smart_docs" class="flip-card center-card">
         <div class="flip-card-inner">
             <div class="flip-card-front">
@@ -190,6 +226,3 @@
 
 </body>
 </html>
-
-
-
