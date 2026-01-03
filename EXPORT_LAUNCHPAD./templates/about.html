@@ -1,22 +1,138 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>About</title>
+    <meta charset="UTF-8">
+    <title>About | Export Launchpad</title>
+    <style>
+        * { box-sizing: border-box; margin:0; padding:0; }
+        body {
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
+                        url("https://images.unsplash.com/photo-1498050108023-c5249f4df085");
+            background-size: cover;
+            background-position: center;
+            color: white;
+        }
+
+        /* HEADER */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(8px);
+        }
+        .logo { font-size: 24px; font-weight: bold; }
+        nav a {
+            color: white;
+            margin-left: 20px;
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+        }
+        nav a::after {
+            content: "";
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background: #ff7b00;
+            transition: 0.3s;
+        }
+        nav a:hover::after { width: 100%; }
+
+        /* MAIN CONTENT */
+        .container {
+            max-width: 900px;
+            margin: 60px auto;
+            background: rgba(255,255,255,0.1);
+            padding: 40px;
+            border-radius: 20px;
+            backdrop-filter: blur(12px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 32px;
+            margin-bottom: 20px;
+            color: #ffb347;
+        }
+
+        p {
+            font-size: 17px;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            color: #f1f1f1;
+        }
+
+        /* BUTTON BACK */
+        .back-btn-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .back-btn {
+            text-decoration: none;
+            padding: 12px 22px;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border-radius: 10px;
+            font-weight: 500;
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,255,255,0.3);
+            transition: 0.3s;
+        }
+        .back-btn:hover {
+            background: rgba(255,255,255,0.35);
+            transform: translateY(-2px);
+        }
+
+    </style>
 </head>
 <body>
-    <h2>About Export Launchpad</h2>
+
+<header>
+    <div class="logo">🚀 Export Launchpad</div>
+    <nav>
+        <a href="/">Home</a>
+        <a href="{{ url_for('dashboard') }}">Dashboard</a>
+        <a href="{{ url_for('results') }}">Results</a>
+        <a href="{{ url_for('about') }}">About</a>
+        <a href="/contact">Contact Us</a>
+        <a href="/logout">Logout</a>
+    </nav>
+</header>
+
+<div class="container">
+    <h1>About Export Launchpad</h1>
 
     <p>
-        Export Launchpad helps first-time Indian exporters
-        decide what to export, where to export, and understand risks
-        in simple language.
+        Export Launchpad is a web application designed to empower small Indian exporters to confidently enter international markets. It addresses the challenges faced by beginners, micro-exporters, and small businesses who often struggle with product selection, profit calculation, risk assessment, and understanding export procedures.
     </p>
 
     <p>
-        This tool simplifies complex trade portals into a
-        beginner-friendly experience.
+        The platform combines four key modules:
     </p>
 
-    <a href="/">Home</a>
+    <ul style="margin-left:20px; margin-bottom:20px;">
+        <li><strong>Niche Product Finder:</strong> Identify high-demand, export-ready products.</li>
+        <li><strong>Profit Snapshot:</strong> Estimate potential profits and break-even points.</li>
+        <li><strong>Risk Radar:</strong> Assess payment, regulatory, and logistics risks.</li>
+        <li><strong>Smart Docs:</strong> Step-by-step document checklist for exporting.</li>
+    </ul>
+
+    <p>
+        With an intuitive interface and actionable insights, Export Launchpad makes global trade accessible and understandable, helping new exporters make data-driven decisions, minimize risks, and grow their business successfully.
+    </p>
+
+    <div class="back-btn-container">
+        <a href="{{ url_for('dashboard') }}" class="back-btn">← Back to Dashboard</a>
+    </div>
+</div>
+
 </body>
 </html>
