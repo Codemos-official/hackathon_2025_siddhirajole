@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Profit Snapshot | Export Launchpad</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body { font-family: Arial; background: #f0f4f8; margin:0; }
+        header { background: #1e90ff; color:white; padding:20px 40px; display:flex; justify-content:space-between; align-items:center;}
+        header .logo { font-weight:bold; }
+        header nav a { color:white; margin-left:20px; text-decoration:none; font-weight:bold;}
+        header nav a:hover { text-decoration:underline; }
+        .container { padding:40px; max-width:600px; margin:auto; }
+        h1 { text-align:center; color:#333; margin-bottom:30px;}
+        .form-container { background:white; padding:30px; border-radius:12px; box-shadow:0 4px 10px rgba(0,0,0,0.1);}
+        input { width:100%; padding:10px; margin:10px 0; border-radius:6px; border:1px solid #ccc; }
+        button { width:100%; padding:12px; background:#ff4500; color:white; border:none; border-radius:8px; cursor:pointer;}
+        button:hover { background:#ff6347;}
+        .results { margin-top:30px; background:white; padding:20px; border-radius:10px; box-shadow:0 3px 8px rgba(0,0,0,0.1);}
+        .results h3 { color:#1e90ff; margin-bottom:10px; }
+        .results p { color:#555; margin:5px 0; }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo">Export Launchpad</div>
+    <nav>
+        <a href="/dashboard">Dashboard</a>
+        <a href="/logout">Logout</a>
+    </nav>
+</header>
+
+<div class="container">
+    <h1>Micro Export Profit Snapshot</h1>
+    <div class="form-container">
+        <form method="POST">
+            <input type="text" name="product_cost" placeholder="Cost per unit">
+            <input type="text" name="packaging_cost" placeholder="Packaging cost">
+            <input type="text" name="export_price" placeholder="Expected export price">
+            <input type="text" name="target_country" placeholder="Target country">
+            <button type="submit">Calculate Profit</button>
+        </form>
+    </div>
+
+    <div class="results">
+        <h3>Example Result:</h3>
+        <p>Estimated Profit per Unit: ₹120</p>
+        <p>Break-even Quantity: 50 units</p>
+        <p>Margin: Worth it ✅</p>
+    </div>
+</div>
+
+</body>
+</html>

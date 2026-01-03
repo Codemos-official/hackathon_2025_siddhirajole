@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Export Launchpad</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body { font-family: Arial; text-align: center; background: #f0f8ff; }
+        .landing-header { padding: 20px; background: #1e90ff; color: white; font-size: 24px; text-align: left; }
+        .landing-container { margin-top: 100px; }
+        .highlight { color: #ff4500; }
+        .tagline { font-size: 18px; color: #555; }
+        .button-container { margin-top: 50px; }
+        .plane-icon { font-size: 50px; display: block; margin-bottom: 20px; transition: transform 1s; }
+        .fly { transform: translateY(-200px) rotate(20deg); }
+        #letsGo { padding: 15px 30px; font-size: 18px; background: #ff4500; color: white; border: none; border-radius: 8px; cursor: pointer; }
+        #letsGo:hover { background: #ff6347; }
+    </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="landing-header">
+    Export Launchpad
+</header>
+
+<!-- MAIN CONTENT -->
+<div class="landing-container">
+    <h1>Welcome to <span class="highlight">Export Launchpad</span></h1>
+    <p class="tagline">Your gateway to easy exporting</p>
+
+    <div class="button-container">
+        <div class="plane-icon">✈️</div>
+        <button id="letsGo">Let's Go</button>
+    </div>
+</div>
+
+<script>
+document.getElementById("letsGo").addEventListener("click", function() {
+    const plane = document.querySelector(".plane-icon");
+    plane.classList.add("fly");
+
+    // After 1 second, go to dashboard
+    setTimeout(function() {
+        window.location.href = "/dashboard";
+    }, 1000);
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Risk Radar | Export Launchpad</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background:
+                linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)),
+                url("https://images.unsplash.com/photo-1508599589920-14cfa1c1fe4d");
+            background-size: cover;
+            background-position: center;
+            color: white;
+        }
+
+        /* BACK BUTTON */
+        .back-btn-container {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 10;
+        }
+
+        .back-btn {
+            text-decoration: none;
+            padding: 10px 16px;
+            background: rgba(255,255,255,0.15);
+            color: white;
+            border-radius: 8px;
+            font-weight: 500;
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,255,255,0.3);
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: rgba(255,255,255,0.25);
+            transform: translateX(-3px);
+        }
+
+        /* HEADER */
+        header {
+            padding: 30px;
+            font-size: 28px;
+            font-weight: bold;
+            text-align: center;
+            letter-spacing: 1px;
+            background: rgba(0,0,0,0.4);
+            backdrop-filter: blur(8px);
+        }
+
+        /* MAIN CONTAINER */
+        .container {
+            max-width: 1100px;
+            margin: 50px auto;
+            padding: 30px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 20px;
+            backdrop-filter: blur(12px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 26px;
+            font-weight: 600;
+        }
+
+        /* SELECTORS */
+        .selectors {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        select, button {
+            padding: 14px 18px;
+            font-size: 16px;
+            border-radius: 8px;
+            border: none;
+            outline: none;
+        }
+
+        select {
+            background: rgba(255,255,255,0.9);
+        }
+
+        button {
+            background: linear-gradient(135deg, #ff4500, #ff7b00);
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(255,69,0,0.4);
+        }
+
+        /* RISK GRID */
+        .risk-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 25px;
+            margin-top: 50px;
+        }
+
+        .risk-card {
+            background: rgba(255,255,255,0.15);
+            padding: 25px;
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-align: center;
+        }
+
+        .risk-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+        }
+
+        .risk-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            letter-spacing: 0.5px;
+        }
+
+        .risk-level {
+            font-size: 26px;
+            font-weight: bold;
+        }
+
+        .low { color: #00ff9d; }
+        .medium { color: #ffd000; }
+        .high { color: #ff4b4b; }
+
+        /* MODAL */
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background: white;
+            color: #333;
+            padding: 30px;
+            width: 420px;
+            max-width: 90%;
+            margin: 10% auto;
+            border-radius: 16px;
+            text-align: center;
+            animation: zoomIn 0.3s ease;
+        }
+
+        @keyframes zoomIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .close {
+            float: right;
+            cursor: pointer;
+            font-size: 22px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- BACK BUTTON -->
+<div class="back-btn-container">
+    <!-- Flask -->
+    <!-- <a href="{{ url_for('dashboard') }}" class="back-btn">← Back to Dashboard</a> -->
+
+    <!-- Normal HTML -->
+    <a href="dashboard.html" class="back-btn">← Back to Dashboard</a>
+</div>
+
+<header>
+    🚨 Risk Radar – Export Launchpad
+</header>
+
+<div class="container">
+    <h2>Analyze Export Risks Before You Ship</h2>
+
+    <div class="selectors">
+        <select id="product">
+            <option value="">Select Product</option>
+            <option value="spices">Spices</option>
+            <option value="handicrafts">Handicrafts</option>
+            <option value="textiles">Textiles</option>
+        </select>
+
+        <select id="country">
+            <option value="">Select Country</option>
+            <option value="usa">USA</option>
+            <option value="germany">Germany</option>
+            <option value="uae">UAE</option>
+        </select>
+
+        <button onclick="analyzeRisk()">Analyze Risk</button>
+    </div>
+
+    <div class="risk-grid" id="riskResults"></div>
+</div>
+
+<!-- MODAL -->
+<div class="modal" id="riskModal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">×</span>
+        <h3 id="modalTitle"></h3>
+        <p id="modalText"></p>
+    </div>
+</div>
+
+<script>
+function analyzeRisk() {
+    const product = document.getElementById("product").value;
+    const country = document.getElementById("country").value;
+
+    if (!product || !country) {
+        alert("Please select product and country");
+        return;
+    }
+
+    const risks = {
+        payment: {
+            level: "Medium",
+            class: "medium",
+            desc: "Delayed payments, buyer credit risk, or default possibilities."
+        },
+        regulatory: {
+            level: "High",
+            class: "high",
+            desc: "Strict import regulations, certifications, and compliance barriers."
+        },
+        logistics: {
+            level: "Low",
+            class: "low",
+            desc: "Stable logistics infrastructure with predictable transit times."
+        },
+        overall: {
+            level: "Medium",
+            class: "medium",
+            desc: "Moderate overall risk. Risk mitigation strategies recommended."
+        }
+    };
+
+    const container = document.getElementById("riskResults");
+    container.innerHTML = "";
+
+    for (let key in risks) {
+        container.innerHTML += `
+            <div class="risk-card" onclick="showModal('${key.toUpperCase()} RISK', '${risks[key].desc}')">
+                <div class="risk-title">${key.toUpperCase()} RISK</div>
+                <div class="risk-level ${risks[key].class}">${risks[key].level}</div>
+            </div>
+        `;
+    }
+}
+
+function showModal(title, text) {
+    document.getElementById("modalTitle").innerText = title;
+    document.getElementById("modalText").innerText = text;
+    document.getElementById("riskModal").style.display = "block";
+}
+
+function closeModal() {
+    document.getElementById("riskModal").style.display = "none";
+}
+</script>
+
+</body>
+</html>

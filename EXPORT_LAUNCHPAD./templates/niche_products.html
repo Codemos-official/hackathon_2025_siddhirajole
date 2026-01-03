@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Niche Products | Export Launchpad</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body { font-family: Arial; background: #f0f4f8; margin:0; }
+        header { background: #1e90ff; color:white; padding:20px 40px; display:flex; justify-content:space-between; align-items:center;}
+        header .logo { font-weight:bold; }
+        header nav a { color:white; margin-left:20px; text-decoration:none; font-weight:bold;}
+        header nav a:hover { text-decoration:underline; }
+        .container { padding:40px; }
+        h1 { text-align:center; color:#333; margin-bottom:30px;}
+        .form-container { max-width:500px; margin:auto; background:white; padding:30px; border-radius:12px; box-shadow:0 4px 10px rgba(0,0,0,0.1);}
+        .form-container input, .form-container select { width:100%; padding:10px; margin:10px 0; border-radius:6px; border:1px solid #ccc;}
+        .form-container button { width:100%; padding:12px; background:#ff4500; color:white; border:none; border-radius:8px; cursor:pointer;}
+        .form-container button:hover { background:#ff6347;}
+        .results { margin-top:30px; }
+        .result-card { background:white; padding:20px; border-radius:10px; margin-bottom:15px; box-shadow:0 3px 8px rgba(0,0,0,0.1);}
+        .result-card h3 { color:#1e90ff; margin-bottom:5px; }
+        .result-card p { color:#555; }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo">Export Launchpad</div>
+    <nav>
+        <a href="/dashboard">Dashboard</a>
+        <a href="/logout">Logout</a>
+    </nav>
+</header>
+
+<div class="container">
+    <h1>Niche Product Finder</h1>
+    <div class="form-container">
+        <form method="POST">
+            <label>Choose State / Region</label>
+            <select name="state">
+                <option>Maharashtra</option>
+                <option>Rajasthan</option>
+                <option>Gujarat</option>
+                <option>Karnataka</option>
+            </select>
+
+            <label>Select Category</label>
+            <select name="category">
+                <option>Textiles</option>
+                <option>Handicrafts</option>
+                <option>Food</option>
+                <option>Decor</option>
+            </select>
+
+            <button type="submit">Find Products</button>
+        </form>
+    </div>
+
+    <div class="results">
+        <!-- Example static result cards -->
+        <div class="result-card">
+            <h3>Bandhani Saree</h3>
+            <p>High demand in Middle East, Unique design advantage.</p>
+        </div>
+        <div class="result-card">
+            <h3>Mango Pickle</h3>
+            <p>Popular among diaspora, GI tag certified.</p>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

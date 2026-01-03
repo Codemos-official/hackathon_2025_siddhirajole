@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard | Export Launchpad</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body { font-family: Arial; background: #f0f4f8; margin:0; }
+        header { background: #1e90ff; color:white; padding:20px 40px; display:flex; justify-content:space-between; align-items:center;}
+        header .logo { font-weight:bold; }
+        header nav a { color:white; margin-left:20px; text-decoration:none; font-weight:bold;}
+        header nav a:hover { text-decoration:underline; }
+
+        .container { padding:40px; display:flex; justify-content:space-around; flex-wrap:wrap; gap:30px; }
+
+        .box {
+            background:white; 
+            padding:40px; 
+            border-radius:12px; 
+            width:250px; 
+            text-align:center; 
+            box-shadow:0 4px 12px rgba(0,0,0,0.15); 
+            cursor:pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            text-decoration: none; /* remove underline */
+            color: inherit; /* keep text color */
+        }
+        .box:hover { transform: translateY(-5px); box-shadow:0 8px 20px rgba(0,0,0,0.2); }
+
+        .box h2 { margin-bottom:15px; color:#1e90ff; }
+        .box p { color:#555; }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo">Export Launchpad</div>
+    <nav>
+        <a href="/logout">Logout</a>
+    </nav>
+</header>
+
+<div class="container">
+    <a href="/niche_products" class="box">
+        <h2>Niche Product Finder</h2>
+        <p>Discover unique products with high export demand.</p>
+    </a>
+
+    <a href="/profit_snapshot" class="box">
+        <h2>Profit Snapshot</h2>
+        <p>Calculate expected profit and break-even points.</p>
+    </a>
+
+    <a href="/risk_radar" class="box">
+        <h2>Risk Radar</h2>
+        <p>Analyze payment, regulation, and logistics risks.</p>
+    </a>
+
+    <a href="/smart_docs" class="box">
+        <h2>Smart Docs</h2>
+        <p>Get the required documents & next steps for exporting.</p>
+    </a>
+</div>
+
+</body>
+</html>
